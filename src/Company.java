@@ -1,4 +1,8 @@
+import java.util.*;
+import java.util.ArrayList;
+
 public class Company {
+
 
     String companyName;
     String companyOffice;
@@ -13,7 +17,7 @@ public class Company {
     }
 
     public String toString(){
-        return "Company's name: " + companyName + " Company's balance: " + balance +
-                " Numbers of company workers" + workersNumber + " Company clients numbers: " + clients;
+        return "Company's name: " + this.companyName + " Company's balance: " + this.balance +
+                " Numbers of company workers" + this.workersNumber + " Company clients numbers: " + this.clients;
     }
 }
