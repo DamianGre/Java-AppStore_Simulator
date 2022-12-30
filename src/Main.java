@@ -11,6 +11,9 @@ public class Main {
     public static void main(String[] args) {
         Random random = new Random();
 
+        Scanner scanner1 = new Scanner(System.in);
+        Scanner scanner2 = new Scanner(System.in);
+
         Boolean menuIsActive = true;
         Boolean newDay = false;
         Boolean firstDay = true;
@@ -23,9 +26,10 @@ public class Main {
 
         List<Project> projects = new ArrayList<Project>();
         List<Employees> possibleEmployees = new ArrayList<Employees>();
-        List<Employees> employeesToHire = new ArrayList<Employees>();
+        List<Employees> hiredEmployees = new ArrayList<Employees>();
         List<Employees> friendEmployees = new ArrayList<Employees>();
-        List<Employees> friendToHire = new ArrayList<Employees>();
+        List<Employees> hiredFriendEmployees = new ArrayList<Employees>();
+
 
 
 
@@ -184,16 +188,13 @@ public class Main {
             friendEmployees.add(friend3);
         }
 
-
         System.out.println(projects.get(0));
         System.out.println("Balance: " + damianGre.balance);
         damianGre.acceptProject(projects.get(0));
         System.out.println("Balance: " + damianGre.balance);
 
-        Scanner scanner1 = new Scanner(System.in);
 
         do {
-
             if(newDay == true) {
                 System.out.println("\nNEW DAY!");
                 newDay = false;
@@ -202,18 +203,18 @@ public class Main {
                 System.out.println("\nFirst Day of Your Company.");
                 int randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                 listsSortingNumber = randomListsSortingNumber;
-                moduloMonday += 7;
-                firstDay = false;
             }
-            if(damianGre.dayCounter % 6 == 0 || damianGre.dayCounter % 7 == 0) {
+            if(//WAZNE BARDZO TUTAJ DODAĆ ZMIENNE SOBOTA I NIEDZIELA I JAK JEST == 6 i == 7 to wtedy dodaje 7dni -> sobota +7 dni = sobota, niedziela 7dni +7 dnie = niedziela) {
                     System.out.println("It's weekend You can't hire people and take new projects.");
                     damianGre.isWeekend =  true;
             }
             if(damianGre.dayCounter == moduloMonday) {
-                System.out.println("It's Monday, new projects and employers are avaiable.");
-                int randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
-                listsSortingNumber = randomListsSortingNumber;
-                moduloMonday += 7;
+                if (moduloMonday != 1) {
+                    System.out.println("It's Monday, new projects and employers are avaiable.");
+                    int randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
+                    listsSortingNumber = randomListsSortingNumber;
+                    moduloMonday += 7;
+                }
             }   
             // Every 30 days is change to get robbed
             if(damianGre.dayCounter % 30 == 0) {
@@ -224,6 +225,8 @@ public class Main {
                     damianGre.balance = damianGre.balance - (damianGre.balance * 0.10);
                 }
             }
+            System.out.println("modulo: " + moduloMonday);
+            System.out.println("Day: " + damianGre.dayCounter);
 
             System.out.println("\nChoose Your action.\n" +
             "Enter '1' to check list of available work projects.\n" +
@@ -244,27 +247,23 @@ public class Main {
                     }
                      break;
                 case 2:
+                    System.out.println(moduloMonday);
                     if((damianGre.dayCounter % moduloMonday == 0) && (damianGre.isWeekend == false)) {
-                        int temporaryEmployeesIndex = 0;
+                        System.out.println("Employees to hire: ");
                         for(int x = 0; x < possibleEmployees.size(); x++){
                             if(x % listsSortingNumber == 0) 
                             {
-                                if(employeesToHire.get(x).equals(null)) {
-                                    employeesToHire.add(possibleEmployees.get(x));
-                                    temporaryEmployeesIndex++;
-                                }
-                                else {
-                                    employeesToHire.set(temporaryEmployeesIndex, possibleEmployees.get(x));
-                                    temporaryEmployeesIndex++;
-                                }
+                                System.out.print(possibleEmployees.get(x) + " He's id number is: " + x);
                             }
                         }
                     }
-                    System.out.println("Employees to hire:");
-                    for(Employees employees: employeesToHire){
-                        System.out.println(employees);
-                    }
+
+                    System.out.println("\n If u want to hire employee enter his id number ");
+                    int employerNumber = scanner2.nextInt();
+
+                    hiredEmployees.add(possibleEmployees.get(employerNumber));
                     break;
+
                 case 3:
                     if((damianGre.dayCounter % 5 == 0) && (damianGre.isWeekend == false)){
                         int randomFriennds = random.nextInt(3) + 1;
@@ -284,7 +283,9 @@ public class Main {
                     ;
                     break;
                 case 5:
-                    ;
+                    for(Employees employees: hiredEmployees){
+                        System.out.println(employees);
+                    }
                     break;
                 case 6:
                     ;
@@ -303,10 +304,14 @@ public class Main {
                     {
                         ex.printStackTrace();
                     }
+                    if(damianGre.dayCounter == 1 && firstDay == true) {
+                        firstDay = false;
+                        moduloMonday += 7;
+                    }
 
                     damianGre.dayCounter++;
                     newDay = true;
-                }
+                    }
                 break;
 
                 case 0: {
