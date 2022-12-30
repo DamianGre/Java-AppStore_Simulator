@@ -4,13 +4,14 @@ import java.util.ArrayList;
 public class Company {
     List<Employees> workers = new ArrayList<Employees>();
 
-    Integer dayCounter;
+    Integer dayCounter = 1;
     String companyName;
     String companyOffice;
     String clientName;
     Double balance = 10000.00; //10k $ at start
     Integer workersNumber = 0;
     Integer clients = 0;
+    Boolean isWeekend = false;
 
     public Company(String companyName){
         this.companyName = companyName;
