@@ -7,6 +7,7 @@ public class Employees {
     Boolean pretaShop;
     Boolean wordPress;
     Boolean canBeHired = false;
+    Boolean isHired = false;
     Double monthlySalary;
     Double projectSalary;
     Boolean isWorking;
