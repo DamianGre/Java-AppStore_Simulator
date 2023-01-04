@@ -19,6 +19,10 @@ public class Main {
         Boolean firstDay = true;
         Integer weeklyProjectListSearcher, weeklyEmployeesListSearcher , weeklyFriendsListSearcher;
         Integer moduloMonday = 1;
+        Integer moduloSaturday = 1;
+        Integer moduloSunday = 1;
+        Integer employerListIndexer = 0;
+        Boolean nextDayIsMonday = true;
         Integer listsSortingNumber = 3;
 
         Company damianGre = new Company("DamianGre");
@@ -27,8 +31,12 @@ public class Main {
         List<Project> projects = new ArrayList<Project>();
         List<Employees> possibleEmployees = new ArrayList<Employees>();
         List<Employees> hiredEmployees = new ArrayList<Employees>();
+        List<Employees> weeklyPossibleEmployesList = new ArrayList<Employees>();
         List<Employees> friendEmployees = new ArrayList<Employees>();
         List<Employees> hiredFriendEmployees = new ArrayList<Employees>();
+
+
+        List<List> weeklyPossibleEmployes = new ArrayList<List>();
 
 
 
@@ -199,33 +207,45 @@ public class Main {
                 System.out.println("\nNEW DAY!");
                 newDay = false;
             }
+
             if(damianGre.dayCounter == 1 && firstDay == true) {
                 System.out.println("\nFirst Day of Your Company.");
-                int randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
+                Integer randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                 listsSortingNumber = randomListsSortingNumber;
             }
-            if(//WAZNE BARDZO TUTAJ DODAĆ ZMIENNE SOBOTA I NIEDZIELA I JAK JEST == 6 i == 7 to wtedy dodaje 7dni -> sobota +7 dni = sobota, niedziela 7dni +7 dnie = niedziela) {
-                    System.out.println("It's weekend You can't hire people and take new projects.");
-                    damianGre.isWeekend =  true;
+
+
+            if(damianGre.dayCounter == 6 || (damianGre.dayCounter % moduloSaturday == 0 && moduloSaturday > 1)){
+                if(damianGre.dayCounter == moduloMonday) {
+                    System.out.println("It's weekend(Saturday). You can't hire people and take new projects.");
+                    damianGre.isWeekend = true;
+                }
+            }
+            if(damianGre.dayCounter == 7 || (damianGre.dayCounter % moduloSunday == 0 && moduloSunday > 1)){
+                    if(damianGre.dayCounter == moduloMonday) {
+                        System.out.println("It's weekend(Sunday). You can't hire people and take new projects.");
+                        damianGre.isWeekend = true;
+                        nextDayIsMonday = true;
+                    }
             }
             if(damianGre.dayCounter == moduloMonday) {
                 if (moduloMonday != 1) {
                     System.out.println("It's Monday, new projects and employers are avaiable.");
-                    int randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
+                    Integer randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                     listsSortingNumber = randomListsSortingNumber;
                     moduloMonday += 7;
                 }
             }   
-            // Every 30 days is change to get robbed
+            // Every 30 days is chance to get robbed
             if(damianGre.dayCounter % 30 == 0) {
-                int robbery = random.nextInt(100) + 1; // 10% chance to get robbed
+                Integer robbery = random.nextInt(100) + 1; // 10% chance to get robbed
                 if (robbery <= 10) //10% to get robbed
                 {
                     System.out.println("\nROBBERY! JAROSŁAW K. HAS STEAL YOUR MONEY!\n");
                     damianGre.balance = damianGre.balance - (damianGre.balance * 0.10);
                 }
             }
-            System.out.println("modulo: " + moduloMonday);
+            System.out.println("modulo Monday: " + moduloMonday);
             System.out.println("Day: " + damianGre.dayCounter);
 
             System.out.println("\nChoose Your action.\n" +
@@ -246,28 +266,104 @@ public class Main {
                         System.out.println(project);
                     }
                      break;
-                case 2:
+                /* case 2:
                     System.out.println(moduloMonday);
-                    if((damianGre.dayCounter % moduloMonday == 0) && (damianGre.isWeekend == false)) {
-                        System.out.println("Employees to hire: ");
-                        for(int x = 0; x < possibleEmployees.size(); x++){
+                    System.out.println(damianGre.dayCounter);
+                    System.out.println(damianGre.dayCounter%moduloMonday);
+                    System.out.println(damianGre.isWeekend);
+                    System.out.println(nextDayIsMonday);
+                    if((damianGre.dayCounter % moduloMonday == 0) && (damianGre.isWeekend == false && nextDayIsMonday == true)) {
+                        Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
+                        listsSortingNumber = randomListsSortingNumber;
+
+                        Integer moduloOneCutter = 1;
+
+                        nextDayIsMonday = false;
+
+                        for(Employees possibleEmployeesShuffle: possibleEmployees){
+                            possibleEmployeesShuffle.canBeHired = false;
+                        }
+
+                        System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
+                        for(Integer x = 0; x < possibleEmployees.size(); x++){
                             if(x % listsSortingNumber == 0) 
                             {
-                                System.out.print(possibleEmployees.get(x) + " He's id number is: " + x);
+                                if(listsSortingNumber == 1)
+                                {
+                                    if(moduloOneCutter < 3)
+                                    {
+                                        moduloOneCutter++;
+                                        possibleEmployees.get(x).canBeHired = true;
+                                        weeklyPossibleEmployesList.add(possibleEmployees.get(x));
+                                        continue;
+                                    }
+                                    else if(moduloOneCutter >=3 && moduloOneCutter < 6){
+                                        moduloOneCutter++;
+                                        continue;
+                                    }
+                                    else if(moduloOneCutter == 6){
+                                        moduloOneCutter = 1;
+                                    }
+                                }
+                                else if(listsSortingNumber == 2 || listsSortingNumber == 4 || listsSortingNumber == 5)
+                                {
+                                    if(x == 0 || x == 2 || x == 3 ||  x == 4 ||  x == 5 || x == 6 || x == 8 || x == 10 || x == 12 ||  x == 13 || x == 14 ||  x == 15 ||  x == 17 || x == 19)
+                                    {
+                                        Integer randomIndexZeroDisabler = random.nextInt(2) + 1; //number from 1 to 3
+                                        if(randomIndexZeroDisabler == 2)
+                                        {
+                                        continue;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        weeklyPossibleEmployesList.add(possibleEmployees.get(x));
+                                        possibleEmployees.get(x).canBeHired = true;
+                                        weeklyPossibleEmployes.add(weeklyPossibleEmployesList);
+                                    }
+                                }
                             }
                         }
+                        for(Integer x1 =0; x1 < weeklyPossibleEmployes.get(employerListIndexer).size(); x1++){
+                            System.out.println("Employer id number is: " + x1 + ". " + possibleEmployees.get(x1));
+                        }
+                    }
+                    else if(nextDayIsMonday == false){
+                        for(Integer x=0; x < weeklyPossibleEmployes.get(employerListIndexer).size(); x++){
+                            System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                        }
+
+
                     }
 
-                    System.out.println("\n If u want to hire employee enter his id number ");
-                    int employerNumber = scanner2.nextInt();
-
-                    hiredEmployees.add(possibleEmployees.get(employerNumber));
+                    System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
+                    Integer employerNumber = scanner2.nextInt();
+                    if(employerNumber == 999)
+                    {
+                        break;
+                    }
+                    else {
+                        if(possibleEmployees.get(employerNumber).canBeHired == true){
+                            System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".") ;
+                            possibleEmployees.get(employerNumber).canBeHired = false;
+                            hiredEmployees.add(possibleEmployees.get(employerNumber));
+                        }
+                        else if (possibleEmployees.get(employerNumber).canBeHired == false) {
+                            System.out.println("\nPerson is already hired by You.");
+                        }
+                        else{
+                            System.out.println("\nWrong employee's id.");
+                            break;
+                        }
+                    }
                     break;
+
+                 */
 
                 case 3:
                     if((damianGre.dayCounter % 5 == 0) && (damianGre.isWeekend == false)){
-                        int randomFriennds = random.nextInt(3) + 1;
-                        for(int x = 0; x < friendEmployees.size(); x++){
+                        Integer randomFriennds = random.nextInt(3) + 1;
+                        for(Integer x = 0; x < friendEmployees.size(); x++){
                             System.out.println();
                         }
                     }
@@ -294,7 +390,7 @@ public class Main {
                     System.out.println("Day has ended.\n");
                     try
                     {
-                        for(int timer = 1; timer >= 0; timer--)
+                        for(Integer timer = 1; timer >= 0; timer--)
                         {
                         System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia
                         TimeUnit.SECONDS.sleep(1);
@@ -307,6 +403,14 @@ public class Main {
                     if(damianGre.dayCounter == 1 && firstDay == true) {
                         firstDay = false;
                         moduloMonday += 7;
+                    }
+                    if(damianGre.dayCounter == 6 || damianGre.dayCounter % moduloSaturday == 0) {
+                        moduloSaturday += 7;
+                    }
+                    if(damianGre.dayCounter == 7 || damianGre.dayCounter % moduloSunday == 0) {
+                        moduloSunday += 7;
+                        employerListIndexer++;
+                        nextDayIsMonday = true;
                     }
 
                     damianGre.dayCounter++;
