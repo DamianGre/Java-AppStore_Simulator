@@ -21,6 +21,7 @@ public class Main {
         Boolean employerSuffler = true;
         Integer weeklyProjectListSearcher, weeklyEmployeesListSearcher, weeklyFriendsListSearcher;
         Integer moduloMonday = 1;
+        Integer moduloMondayShuffle = 1;
         Integer moduloSaturday = 1;
         Integer moduloSunday = 1;
         Integer employerListIndexer = 0;
@@ -361,8 +362,10 @@ public class Main {
                     System.out.println(damianGre.dayCounter);
                     System.out.println(damianGre.dayCounter % moduloMonday);
                     System.out.println(damianGre.isWeekend);
+                    System.out.println(employerSuffler);
                     System.out.println(nextDayIsMonday);
-                    if ((damianGre.dayCounter % moduloMonday == 0) && (damianGre.isWeekend == false && employerSuffler == true)) {
+                    if ((damianGre.dayCounter % moduloMondayShuffle == 0) && (damianGre.isWeekend == false && employerSuffler == true)) {
+                        System.out.println("SZUFLUJEMY");
 
                         Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
                         listsSortingNumber = randomListsSortingNumber;
@@ -469,7 +472,7 @@ public class Main {
                         case 7: {
                             System.out.println("Day has ended.\n");
                             try {
-                                for (Integer timer = 1; timer >= 0; timer--) {
+                                for (Integer timer = 1; timer > 0; timer--) {
                                     System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia
                                     TimeUnit.SECONDS.sleep(1);
                                 }
@@ -480,6 +483,7 @@ public class Main {
                                 firstDay = false;
                                 moduloMonday += 7;
                             }
+                            // WAZNE 3 TYDZIEN W PONIEDZIALEK SA 3 DNI NA RAZ sobota niedziala i poiniedzialek ogarnij te modulo
                             if (damianGre.dayCounter == 6 || damianGre.dayCounter % moduloSaturday == 0) {
                                 moduloSaturday += 7;
                             }
@@ -487,6 +491,10 @@ public class Main {
                                 moduloSunday += 7;
                                 employerListIndexer++;
                                 nextDayIsMonday = true;
+                                employerSuffler = true;
+                            }
+                            if(damianGre.dayCounter == moduloSunday + 1) {
+                                moduloMondayShuffle +=7;
                             }
 
                             damianGre.dayCounter++;
