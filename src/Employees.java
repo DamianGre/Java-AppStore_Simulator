@@ -11,6 +11,7 @@ public class Employees {
     Double dailySalary;
     Double projectSalary;
     Boolean isWorking;
+    Integer dayToCanBeFired = 5; // only after 5 days employer can be fired
     Integer workingOnProjectDays;
     Integer failureChanace;
     public Employees(String name, Boolean frontEnd, Boolean backEnd, Boolean database, Boolean mobile, Boolean pretaShop, Boolean wordPress,Double dailySalary){

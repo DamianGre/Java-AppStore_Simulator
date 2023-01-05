@@ -452,15 +452,28 @@ public class Main {
                             ;
                             break;
                         case 5:
+                            //DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
                             for(Integer x = 0; x < hiredEmployees.size(); x++)
                             {
                                 System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
                             }
                             break;
                         case 6: {
+                            Integer employersToFireCounter = 0;
+                            Integer nullEmployersCounter = 0;
                             for(Integer x = 0; x < hiredEmployees.size(); x++)
                             {
-                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                                if(hiredEmployees.get(x) == null){
+                                    nullEmployersCounter++;
+                                    continue;
+                                }else if(hiredEmployees.get(x).dayToCanBeFired == 0) {
+                                    System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                                    employersToFireCounter++;
+                                }
+                            }
+                            if(employersToFireCounter == 0){
+                                System.out.println("No Employers to FIRE.");
+                                break;
                             }
                                 System.out.println("\nTo fire employer enter his id number. If You want to quit enter: 999.");
                                 Integer employerNumberToFire = scanner3.nextInt();
@@ -481,6 +494,13 @@ public class Main {
                                 }
                             break;
                         case 7: {
+                            for (Employees employees : hiredEmployees) {
+                                if(employees.dayToCanBeFired == 0)
+                                {
+                                    continue;
+                                }
+                                employees.dayToCanBeFired--;
+                            }
                             for (Employees employees : hiredEmployees) {
                                 damianGre.balance -= employees.dailySalary;
                                 System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
