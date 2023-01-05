@@ -21,9 +21,9 @@ public class Main {
         Boolean employerSuffler = true;
         Integer weeklyProjectListSearcher, weeklyEmployeesListSearcher, weeklyFriendsListSearcher;
         Integer moduloMonday = 1;
-        Integer moduloMondayShuffle = 1;
-        Integer moduloSaturday = 1;
-        Integer moduloSunday = 1;
+        Boolean moduloMondayShuffle = true;
+        Integer moduloSaturday = 0;
+        Integer moduloSunday = 0;
         Integer employerListIndexer = 0;
         Integer empolyer1 = 0, empolyer2 = 0, empolyer3 = 0, empolyer4 = 0, empolyer5 = 0;
         Integer listsSortingNumber = 3;
@@ -214,14 +214,23 @@ public class Main {
             }
 
 
-            if (damianGre.dayCounter == 6 || (damianGre.dayCounter % moduloSaturday == 0 && moduloSaturday > 1)) {
-                if (damianGre.dayCounter == moduloMonday) {
+            if (damianGre.dayCounter == 6 ) {
+                    System.out.println("It's weekend(Saturday). You can't hire people and take new projects.");
+                    damianGre.isWeekend = true;
+            }
+            if(moduloSaturday > 1) {
+                if (damianGre.dayCounter % moduloSaturday == 0 && moduloSaturday > 1) {
                     System.out.println("It's weekend(Saturday). You can't hire people and take new projects.");
                     damianGre.isWeekend = true;
                 }
             }
-            if (damianGre.dayCounter == 7 || (damianGre.dayCounter % moduloSunday == 0 && moduloSunday > 1)) {
-                if (damianGre.dayCounter == moduloMonday) {
+            if (damianGre.dayCounter == 7 ) {
+                    System.out.println("It's weekend(Sunday). You can't hire people and take new projects.");
+                    damianGre.isWeekend = true;
+                    nextDayIsMonday = true;
+            }
+            if(moduloSunday > 1) {
+                if (damianGre.dayCounter % moduloSunday == 0 && moduloSunday > 1) {
                     System.out.println("It's weekend(Sunday). You can't hire people and take new projects.");
                     damianGre.isWeekend = true;
                     nextDayIsMonday = true;
@@ -233,6 +242,8 @@ public class Main {
                     Integer randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                     listsSortingNumber = randomListsSortingNumber;
                     moduloMonday += 7;
+                    moduloMondayShuffle =true;
+                    damianGre.isWeekend = false;
                 }
             }
             // Every 30 days is chance to get robbed
@@ -245,6 +256,8 @@ public class Main {
                 }
             }
             System.out.println("modulo Monday: " + moduloMonday);
+            System.out.println("modulo Saturday: " + moduloSaturday);
+            System.out.println("modulo Sunday: " + moduloSunday);
             System.out.println("Day: " + damianGre.dayCounter);
 
             System.out.println("\nChoose Your action.\n" +
@@ -359,12 +372,13 @@ public class Main {
                  */
                 case 2: {
                     System.out.println(moduloMonday);
-                    System.out.println(damianGre.dayCounter);
-                    System.out.println(damianGre.dayCounter % moduloMonday);
-                    System.out.println(damianGre.isWeekend);
-                    System.out.println(employerSuffler);
-                    System.out.println(nextDayIsMonday);
-                    if ((damianGre.dayCounter % moduloMondayShuffle == 0) && (damianGre.isWeekend == false && employerSuffler == true)) {
+                    System.out.println("dayCounter: " + damianGre.dayCounter);
+                    System.out.println("dayCounter / ModuloMonday: " + damianGre.dayCounter % moduloMonday);
+                    System.out.println("isWeekend: " + damianGre.isWeekend);
+                    System.out.println("EmpolyerShuffel: " + employerSuffler);
+                    System.out.println("nextDayIs monday: " + nextDayIsMonday);
+                    System.out.println("moduloMondayShuffle: " + moduloMondayShuffle );
+                    if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
                         System.out.println("SZUFLUJEMY");
 
                         Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
@@ -479,22 +493,34 @@ public class Main {
                             } catch (InterruptedException ex) {
                                 ex.printStackTrace();
                             }
+                            moduloMondayShuffle = false;
                             if (damianGre.dayCounter == 1 && firstDay == true) {
                                 firstDay = false;
                                 moduloMonday += 7;
+                                moduloMondayShuffle = true;
                             }
                             // WAZNE 3 TYDZIEN W PONIEDZIALEK SA 3 DNI NA RAZ sobota niedziala i poiniedzialek ogarnij te modulo
-                            if (damianGre.dayCounter == 6 || damianGre.dayCounter % moduloSaturday == 0) {
-                                moduloSaturday += 7;
+                            if (damianGre.dayCounter == 6 ) {
+                                moduloSaturday += 6;
                             }
-                            if (damianGre.dayCounter == 7 || damianGre.dayCounter % moduloSunday == 0) {
+                            if(moduloSaturday > 0) {
+                                if (damianGre.dayCounter % moduloSaturday == 0) {
+                                    moduloSaturday += 7;
+                                }
+                            }
+                            if (damianGre.dayCounter == 7 ) {
                                 moduloSunday += 7;
                                 employerListIndexer++;
                                 nextDayIsMonday = true;
                                 employerSuffler = true;
                             }
-                            if(damianGre.dayCounter == moduloSunday + 1) {
-                                moduloMondayShuffle +=7;
+                            if(moduloSunday > 0) {
+                                if (damianGre.dayCounter % moduloSunday == 0) {
+                                    moduloSunday += 7;
+                                    employerListIndexer++;
+                                    nextDayIsMonday = true;
+                                    employerSuffler = true;
+                                }
                             }
 
                             damianGre.dayCounter++;
