@@ -452,7 +452,9 @@ public class Main {
                             ;
                             break;
                         case 5:
-                            //DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
+                            // DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
+                            // MOZE DODAC ZE ZMIENNA NOWA W EPOLOYE ZE BYL PRACOWNIK I JAK ROBIMY
+                            // 5 case to wyswietla ze jest pracownikiem a jak nie to ze byl a nie null?
                             for(Integer x = 0; x < hiredEmployees.size(); x++)
                             {
                                 System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
