@@ -13,6 +13,8 @@ public class Main {
 
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
+        Scanner scanner3 = new Scanner(System.in);
+
 
         Boolean menuIsActive = true;
         Boolean newDay = false;
@@ -122,26 +124,26 @@ public class Main {
 
         //List of 20 employees to hire
 
-        possibleEmployees.add(new Employees("Damian", true, false, false, false, false, false, 5000.00));
-        possibleEmployees.add(new Employees("Tomasz", false, true, false, false, false, false, 5000.00));
-        possibleEmployees.add(new Employees("Karolina", false, false, true, false, false, false, 5000.00));
-        possibleEmployees.add(new Employees("Borys", false, false, false, true, false, false, 5000.00));
-        possibleEmployees.add(new Employees("Sława", false, false, false, false, true, false, 5000.00));
-        possibleEmployees.add(new Employees("Dorota", false, false, false, false, false, true, 5000.00));
-        possibleEmployees.add(new Employees("Kamil", true, false, true, false, false, false, 7500.00));
-        possibleEmployees.add(new Employees("Piotr", true, true, false, false, false, false, 7500.00));
-        possibleEmployees.add(new Employees("Sasza", true, false, false, true, false, false, 7500.00));
-        possibleEmployees.add(new Employees("Anna", true, false, false, false, true, false, 7500.00));
-        possibleEmployees.add(new Employees("Sabina", true, false, false, false, false, true, 75000.00));
-        possibleEmployees.add(new Employees("Dariusz", true, true, false, true, false, false, 8000.00));
-        possibleEmployees.add(new Employees("Brygida", true, true, false, false, true, false, 8000.00));
-        possibleEmployees.add(new Employees("Donald", true, true, false, true, true, false, 9000.00));
-        possibleEmployees.add(new Employees("Beata", true, true, true, true, true, true, 12000.00));
-        possibleEmployees.add(new Employees("Karyna", true, false, false, false, false, true, 15000.00));
-        possibleEmployees.add(new Employees("Julia", true, true, false, true, false, false, 16000.00));
-        possibleEmployees.add(new Employees("Sebastian", true, true, true, false, true, false, 15000.00));
-        possibleEmployees.add(new Employees("Patryk", true, true, true, true, true, true, 14000.00));
-        possibleEmployees.add(new Employees("Stanisław", true, true, true, true, true, true, 17000.00));
+        possibleEmployees.add(new Employees("Damian", true, false, false, false, false, false, 250.00));
+        possibleEmployees.add(new Employees("Tomasz", false, true, false, false, false, false, 270.00));
+        possibleEmployees.add(new Employees("Karolina", false, false, true, false, false, false, 235.00));
+        possibleEmployees.add(new Employees("Borys", false, false, false, true, false, false, 245.00));
+        possibleEmployees.add(new Employees("Sława", false, false, false, false, true, false, 240.00));
+        possibleEmployees.add(new Employees("Dorota", false, false, false, false, false, true, 255.00));
+        possibleEmployees.add(new Employees("Kamil", true, false, true, false, false, false, 295.00));
+        possibleEmployees.add(new Employees("Piotr", true, true, false, false, false, false, 325.00));
+        possibleEmployees.add(new Employees("Sasza", true, false, false, true, false, false, 315.00));
+        possibleEmployees.add(new Employees("Anna", true, false, false, false, true, false, 330.00));
+        possibleEmployees.add(new Employees("Sabina", true, false, false, false, false, true, 350.00));
+        possibleEmployees.add(new Employees("Dariusz", true, true, false, true, false, false, 385.00));
+        possibleEmployees.add(new Employees("Brygida", true, true, false, false, true, false, 490.00));
+        possibleEmployees.add(new Employees("Donald", true, true, false, true, true, false, 495.00));
+        possibleEmployees.add(new Employees("Beata", true, true, true, true, true, true, 535.00));
+        possibleEmployees.add(new Employees("Karyna", true, false, false, false, false, true, 550.00));
+        possibleEmployees.add(new Employees("Julia", true, true, false, true, false, false, 560.00));
+        possibleEmployees.add(new Employees("Sebastian", true, true, true, false, true, false, 555.00));
+        possibleEmployees.add(new Employees("Patryk", true, true, true, true, true, true, 570.00));
+        possibleEmployees.add(new Employees("Stanisław", true, true, true, true, true, true, 650.00));
 
         //List of 3 friends that. With random skills
         int firendSkills = random.nextInt(100) + 1;
@@ -204,11 +206,13 @@ public class Main {
         do {
             if (newDay == true) {
                 System.out.println("\nNEW DAY!");
+                System.out.println("\nYour balance is: " + damianGre.balance);
                 newDay = false;
             }
 
             if (damianGre.dayCounter == 1 && firstDay == true) {
                 System.out.println("\nFirst Day of Your Company.");
+                System.out.println("\nYour balance is: " + damianGre.balance);
                 Integer randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                 listsSortingNumber = randomListsSortingNumber;
             }
@@ -265,8 +269,8 @@ public class Main {
                     "Enter '2' to check potential employees.\n" +
                     "Enter '3' to check friends that can do projects by itself.\n" +
                     "Enter '4' to check projects in progress.\n" +
-                    "Enter '5' to check your employees.\n" +
-                    "Enter '6' Add a job advertisement in the newspaper.\n" +
+                    "Enter '5' print your employees.\n" +
+                    "Enter '6' to fire employees.\n" +
                     "Enter '7' End day.\n" +
                     "Enter '0' To end application!");
 
@@ -278,98 +282,6 @@ public class Main {
                         System.out.println(project);
                     }
                     break;
-                /* case 2:
-                    System.out.println(moduloMonday);
-                    System.out.println(damianGre.dayCounter);
-                    System.out.println(damianGre.dayCounter%moduloMonday);
-                    System.out.println(damianGre.isWeekend);
-                    System.out.println(nextDayIsMonday);
-                    if((damianGre.dayCounter % moduloMonday == 0) && (damianGre.isWeekend == false && nextDayIsMonday == true)) {
-                        Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
-                        listsSortingNumber = randomListsSortingNumber;
-
-                        Integer moduloOneCutter = 1;
-
-                        nextDayIsMonday = false;
-
-                        for(Employees possibleEmployeesShuffle: possibleEmployees){
-                            possibleEmployeesShuffle.canBeHired = false;
-                        }
-
-                        System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
-                        for(Integer x = 0; x < possibleEmployees.size(); x++){
-                            if(x % listsSortingNumber == 0) 
-                            {
-                                if(listsSortingNumber == 1)
-                                {
-                                    if(moduloOneCutter < 3)
-                                    {
-                                        moduloOneCutter++;
-                                        possibleEmployees.get(x).canBeHired = true;
-                                        weeklyPossibleEmployesList.add(possibleEmployees.get(x));
-                                        continue;
-                                    }
-                                    else if(moduloOneCutter >=3 && moduloOneCutter < 6){
-                                        moduloOneCutter++;
-                                        continue;
-                                    }
-                                    else if(moduloOneCutter == 6){
-                                        moduloOneCutter = 1;
-                                    }
-                                }
-                                else if(listsSortingNumber == 2 || listsSortingNumber == 4 || listsSortingNumber == 5)
-                                {
-                                    if(x == 0 || x == 2 || x == 3 ||  x == 4 ||  x == 5 || x == 6 || x == 8 || x == 10 || x == 12 ||  x == 13 || x == 14 ||  x == 15 ||  x == 17 || x == 19)
-                                    {
-                                        Integer randomIndexZeroDisabler = random.nextInt(2) + 1; //number from 1 to 3
-                                        if(randomIndexZeroDisabler == 2)
-                                        {
-                                        continue;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        weeklyPossibleEmployesList.add(possibleEmployees.get(x));
-                                        possibleEmployees.get(x).canBeHired = true;
-                                        weeklyPossibleEmployes.add(weeklyPossibleEmployesList);
-                                    }
-                                }
-                            }
-                        }
-                        for(Integer x1 =0; x1 < weeklyPossibleEmployes.get(employerListIndexer).size(); x1++){
-                            System.out.println("Employer id number is: " + x1 + ". " + possibleEmployees.get(x1));
-                        }
-                    }
-                    else if(nextDayIsMonday == false){
-                        for(Integer x=0; x < weeklyPossibleEmployes.get(employerListIndexer).size(); x++){
-                            System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                        }
-
-
-                    }
-
-                    System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
-                    Integer employerNumber = scanner2.nextInt();
-                    if(employerNumber == 999)
-                    {
-                        break;
-                    }
-                    else {
-                        if(possibleEmployees.get(employerNumber).canBeHired == true){
-                            System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".") ;
-                            possibleEmployees.get(employerNumber).canBeHired = false;
-                            hiredEmployees.add(possibleEmployees.get(employerNumber));
-                        }
-                        else if (possibleEmployees.get(employerNumber).canBeHired == false) {
-                            System.out.println("\nPerson is already hired by You.");
-                        }
-                        else{
-                            System.out.println("\nWrong employee's id.");
-                            break;
-                        }
-                    }
-                    break;
-                 */
                 case 2: {
                     System.out.println(moduloMonday);
                     System.out.println("dayCounter: " + damianGre.dayCounter);
@@ -463,33 +375,44 @@ public class Main {
                         System.out.println(empolyer3);
                         System.out.println(empolyer4);
                         System.out.println(empolyer5);
+                        Integer possibleEmployerCouinter = 0;
                         for(Integer x = 0; x < possibleEmployees.size(); x++) {
                             if (x == empolyer1) {
                                 if(possibleEmployees.get(x).isHired == true){
                                     continue;
                                 }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                possibleEmployerCouinter++;
                             } else if (x == empolyer2) {
                                 if(possibleEmployees.get(x).isHired == true){
                                     continue;
                                 }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                possibleEmployerCouinter++;
                             } else if (x == empolyer3) {
                                 if(possibleEmployees.get(x).isHired == true){
                                     continue;
                                 }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                possibleEmployerCouinter++;
                             } else if (x == empolyer4) {
                                 if(possibleEmployees.get(x).isHired == true){
                                     continue;
                                 }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                possibleEmployerCouinter++;
                             } else if (x == empolyer5) {
                                 if(possibleEmployees.get(x).isHired == true){
                                     continue;
                                 }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                possibleEmployerCouinter++;
                             }
+                        }
+                        if(possibleEmployerCouinter == 0)
+                        {
+                            System.out.println("No more employers to hire in this weekend.");
+                            break;
                         }
                         System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
                         Integer employerNumber = scanner2.nextInt();
@@ -529,15 +452,40 @@ public class Main {
                             ;
                             break;
                         case 5:
-                            for (Employees employees : hiredEmployees) {
-                                System.out.println(employees);
+                            for(Integer x = 0; x < hiredEmployees.size(); x++)
+                            {
+                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
                             }
                             break;
-                        case 6:
-                            ;
+                        case 6: {
+                            for(Integer x = 0; x < hiredEmployees.size(); x++)
+                            {
+                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                            }
+                                System.out.println("\nTo fire employer enter his id number. If You want to quit enter: 999.");
+                                Integer employerNumberToFire = scanner3.nextInt();
+                                if (employerNumberToFire == 999) {
+                                    break;
+                                } else {
+                                    if (hiredEmployees.get(employerNumberToFire).isHired == true) {
+                                        System.out.println("\nYou have FIRED: " + hiredEmployees.get(employerNumberToFire).name + ".");
+                                        possibleEmployees.get(employerNumberToFire).isHired = false;
+                                        hiredEmployees.set(employerNumberToFire, null);
+                                    } else if (hiredEmployees.get(employerNumberToFire).isHired == false) {
+                                        System.out.println("\nPerson is not Your employer.");
+                                    } else {
+                                        System.out.println("\nWrong employee's id.");
+                                        break;
+                                    }
+                                }
+                                }
                             break;
                         case 7: {
-                            System.out.println("Day has ended.\n");
+                            for (Employees employees : hiredEmployees) {
+                                damianGre.balance -= employees.dailySalary;
+                                System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
+                            }
+                            System.out.println("\nDay has ended.\n");
                             try {
                                 for (Integer timer = 1; timer > 0; timer--) {
                                     System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia

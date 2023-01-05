@@ -8,12 +8,12 @@ public class Employees {
     Boolean wordPress;
     Boolean canBeHired = false;
     Boolean isHired = false;
-    Double monthlySalary;
+    Double dailySalary;
     Double projectSalary;
     Boolean isWorking;
     Integer workingOnProjectDays;
     Integer failureChanace;
-    public Employees(String name, Boolean frontEnd, Boolean backEnd, Boolean database, Boolean mobile, Boolean pretaShop, Boolean wordPress,Double monthlySalary){
+    public Employees(String name, Boolean frontEnd, Boolean backEnd, Boolean database, Boolean mobile, Boolean pretaShop, Boolean wordPress,Double dailySalary){
         this.name = name;
         this.frontEnd = frontEnd;
         this.backEnd = backEnd;
@@ -21,7 +21,7 @@ public class Employees {
         this.mobile = mobile;
         this.pretaShop = pretaShop;
         this.wordPress = wordPress;
-        this.monthlySalary = monthlySalary ;
+        this.dailySalary = dailySalary ;
     }
 
     public String toString(){
