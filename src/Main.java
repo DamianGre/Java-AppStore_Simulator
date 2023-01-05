@@ -384,11 +384,11 @@ public class Main {
                         Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
                         listsSortingNumber = randomListsSortingNumber;
 
-                        empolyer1 = random.nextInt(20); //number from 0 to 20
-                        empolyer2 = random.nextInt(20); //number from 0 to 20
-                        empolyer3 = random.nextInt(20); //number from 0 to 20
-                        empolyer4 = random.nextInt(20); //number from 0 to 20
-                        empolyer5 = random.nextInt(20); //number from 0 to 20
+                        empolyer1 = random.nextInt(25); //number from 0 to 20
+                        empolyer2 = random.nextInt(25); //number from 0 to 20
+                        empolyer3 = random.nextInt(25); //number from 0 to 20
+                        empolyer4 = random.nextInt(25); //number from 0 to 20
+                        empolyer5 = random.nextInt(25); //number from 0 to 20
 
 
                         Integer moduloOneCutter = 1;
@@ -402,20 +402,40 @@ public class Main {
                         System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
                         for (Integer x = 0; x < possibleEmployees.size(); x++) {
                             if (x == empolyer1) {
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 possibleEmployees.get(x).canBeHired = true;
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer2) {
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 possibleEmployees.get(x).canBeHired = true;
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer3) {
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 possibleEmployees.get(x).canBeHired = true;
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer4) {
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 possibleEmployees.get(x).canBeHired = true;
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer5) {
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 possibleEmployees.get(x).canBeHired = true;
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                            }else if (empolyer1 > 20 || empolyer2 > 20 || empolyer3 > 20 || empolyer4 > 20|| empolyer5 > 20) {
+                                continue;
+                            }
+                            else if (empolyer1 >= 20 && empolyer2 >= 20 && empolyer3 >= 20 && empolyer4 >= 20 && empolyer5 >= 20) {
+                                System.out.println("There is ZERO empolyers to hire in this weekend");
                             }
                         }
 
@@ -437,26 +457,59 @@ public class Main {
                         }
                     }
                     else {
-                        for (Integer x = 0; x < possibleEmployees.size(); x++) {
+                        System.out.println("\nELSE SZUFFLE");
+                        System.out.println(empolyer1);
+                        System.out.println(empolyer2);
+                        System.out.println(empolyer3);
+                        System.out.println(empolyer4);
+                        System.out.println(empolyer5);
+                        for(Integer x = 0; x < possibleEmployees.size(); x++) {
                             if (x == empolyer1) {
-                                possibleEmployees.get(x).canBeHired = true;
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer2) {
-                                possibleEmployees.get(x).canBeHired = true;
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer3) {
-                                possibleEmployees.get(x).canBeHired = true;
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer4) {
-                                possibleEmployees.get(x).canBeHired = true;
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             } else if (x == empolyer5) {
-                                possibleEmployees.get(x).canBeHired = true;
+                                if(possibleEmployees.get(x).isHired == true){
+                                    continue;
+                                }
                                 System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
                             }
                         }
+                        System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
+                        Integer employerNumber = scanner2.nextInt();
+                        if (employerNumber == 999) {
+                            break;
+                        } else {
+                            if (possibleEmployees.get(employerNumber).canBeHired == true && possibleEmployees.get(employerNumber).isHired == false) {
+                                System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
+                                possibleEmployees.get(employerNumber).isHired = true;
+                                hiredEmployees.add(possibleEmployees.get(employerNumber));
+                            } else if (possibleEmployees.get(employerNumber).isHired == true) {
+                                System.out.println("\nPerson is already hired by You.");
+                                break;
+                            } else {
+                                System.out.println("\nWrong employee's id.");
+                                break;
+                            }
                     }
                 }
+            }
                         break;
 
                         case 3:
