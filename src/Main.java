@@ -1,3 +1,4 @@
+import javax.swing.text.StyledEditorKit;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.util.Date;
@@ -9,20 +10,24 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-        Random random = new Random();
 
+        Random random = new Random();
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
         Scanner scanner3 = new Scanner(System.in);
 
+        ListAdder listAdder = new ListAdder();
 
         Boolean menuIsActive = true;
         Boolean newDay = false;
         Boolean firstDay = true;
         Boolean nextDayIsMonday = true;
         Boolean employerSuffler = true;
+        Boolean friendMondayShuffle =true;
+        Boolean endDay = false;
         Integer weeklyProjectListSearcher, weeklyEmployeesListSearcher, weeklyFriendsListSearcher;
         Integer moduloMonday = 1;
+        Integer firendSkills = 0;
         Boolean moduloMondayShuffle = true;
         Integer moduloSaturday = 0;
         Integer moduloSunday = 0;
@@ -32,170 +37,23 @@ public class Main {
 
         Company damianGre = new Company("DamianGre");
 
-
         List<Project> projects = new ArrayList<Project>();
         List<Employees> possibleEmployees = new ArrayList<Employees>();
         List<Employees> hiredEmployees = new ArrayList<Employees>();
         List<Employees> weeklyPossibleEmployesList = new ArrayList<Employees>();
         List<Employees> friendEmployees = new ArrayList<Employees>();
         List<Employees> hiredFriendEmployees = new ArrayList<Employees>();
-
-
         List<List> weeklyPossibleEmployes = new ArrayList<List>();
 
 
         //Projects to pickup by random generator
-
-        //10 projects from 1 level complexity
-        projects.add(new Project("Web app", Project.ProjectType.Frontend, null, null,
-                "Heyos", 5, 20000.00, 7000.00, 5,
-                1));
-        projects.add(new Project("SPA", Project.ProjectType.Pretashop, null, null,
-                "Spasan", 3, 15000.00, 5000.00, 5,
-                1));
-        projects.add(new Project("Web app", Project.ProjectType.Mobile, null, null,
-                "Felinta", 3, 22000.00, 7000.00, 5,
-                1));
-        projects.add(new Project("Mobile App", Project.ProjectType.Wordpress, null, null,
-                "Gagle", 3, 25000.00, 8000.00, 5,
-                1));
-        projects.add(new Project("Data Base", Project.ProjectType.Database, null, null,
-                "Zawiru", 3, 17500.00, 8000.00, 5,
-                1));
-        projects.add(new Project("Web app", Project.ProjectType.Mobile, null, null,
-                "Heyos", 5, 20000.00, 7000.00, 5,
-                1));
-        projects.add(new Project("SPA", Project.ProjectType.Frontend, null, null,
-                "Spasan", 3, 15000.00, 5000.00, 5,
-                1));
-        projects.add(new Project("Web app", Project.ProjectType.Backend, null, null,
-                "Felinta", 3, 22000.00, 7000.00, 5,
-                1));
-        projects.add(new Project("Mobile App", Project.ProjectType.Wordpress, null, null,
-                "Gagle", 3, 25000.00, 8000.00, 5,
-                1));
-        projects.add(new Project("Data Base", Project.ProjectType.Pretashop, null, null,
-                "Zawiru", 3, 17500.00, 8000.00, 5,
-                1));
-
-        //9 projects from 2 level complexity
-        projects.add(new Project("Web app", Project.ProjectType.Frontend, Project.ProjectType.Backend, null,
-                "Heyos", 5, 20000.00, 7000.00, 5,
-                2));
-        projects.add(new Project("SPA", Project.ProjectType.Frontend, Project.ProjectType.Database, null,
-                "Spasan", 3, 15000.00, 5000.00, 5,
-                2));
-        projects.add(new Project("Web app", Project.ProjectType.Mobile, Project.ProjectType.Backend, null,
-                "Felinta", 3, 22000.00, 7000.00, 5,
-                2));
-        projects.add(new Project("Mobile App", Project.ProjectType.Frontend, Project.ProjectType.Wordpress, null,
-                "Gagle", 3, 25000.00, 8000.00, 5,
-                2));
-        projects.add(new Project("Data Base", Project.ProjectType.Mobile, Project.ProjectType.Database, null,
-                "Zawiru", 3, 17500.00, 8000.00, 5,
-                2));
-        projects.add(new Project("Web app", Project.ProjectType.Frontend, Project.ProjectType.Wordpress, null,
-                "Heyos", 5, 20000.00, 7000.00, 5,
-                2));
-        projects.add(new Project("SPA", Project.ProjectType.Mobile, Project.ProjectType.Database, null,
-                "Spasan", 3, 15000.00, 5000.00, 5,
-                2));
-        projects.add(new Project("Web app", Project.ProjectType.Frontend, Project.ProjectType.Backend, null,
-                "Felinta", 3, 22000.00, 7000.00, 5,
-                2));
-        projects.add(new Project("Mobile App", Project.ProjectType.Frontend, Project.ProjectType.Wordpress, null,
-                "Gagle", 3, 25000.00, 8000.00, 5,
-                2));
-
-
-        //4 projects from 3 level complexity
-        projects.add(new Project("SPA", Project.ProjectType.Frontend, Project.ProjectType.Backend, Project.ProjectType.Pretashop,
-                "Spasan", 3, 15000.00, 5000.00, 5,
-                3));
-        projects.add(new Project("Web app", Project.ProjectType.Mobile, Project.ProjectType.Backend, Project.ProjectType.Database,
-                "Felinta", 3, 22000.00, 7000.00, 5,
-                3));
-        projects.add(new Project("Mobile App", Project.ProjectType.Frontend, Project.ProjectType.Wordpress, Project.ProjectType.Database,
-                "Gagle", 3, 25000.00, 8000.00, 5,
-                3));
-        projects.add(new Project("Data Base", Project.ProjectType.Database, Project.ProjectType.Backend, Project.ProjectType.Wordpress,
-                "Zawiru", 3, 17500.00, 8000.00, 5,
-                3));
-
+        listAdder.possibleProjectAdderTier1(projects);
+        listAdder.possibleProjectAdderTier2(projects);
+        listAdder.possibleProjectAdderTier3(projects);
         //List of 20 employees to hire
-
-        possibleEmployees.add(new Employees("Damian", true, false, false, false, false, false, 250.00));
-        possibleEmployees.add(new Employees("Tomasz", false, true, false, false, false, false, 270.00));
-        possibleEmployees.add(new Employees("Karolina", false, false, true, false, false, false, 235.00));
-        possibleEmployees.add(new Employees("Borys", false, false, false, true, false, false, 245.00));
-        possibleEmployees.add(new Employees("Sława", false, false, false, false, true, false, 240.00));
-        possibleEmployees.add(new Employees("Dorota", false, false, false, false, false, true, 255.00));
-        possibleEmployees.add(new Employees("Kamil", true, false, true, false, false, false, 295.00));
-        possibleEmployees.add(new Employees("Piotr", true, true, false, false, false, false, 325.00));
-        possibleEmployees.add(new Employees("Sasza", true, false, false, true, false, false, 315.00));
-        possibleEmployees.add(new Employees("Anna", true, false, false, false, true, false, 330.00));
-        possibleEmployees.add(new Employees("Sabina", true, false, false, false, false, true, 350.00));
-        possibleEmployees.add(new Employees("Dariusz", true, true, false, true, false, false, 385.00));
-        possibleEmployees.add(new Employees("Brygida", true, true, false, false, true, false, 490.00));
-        possibleEmployees.add(new Employees("Donald", true, true, false, true, true, false, 495.00));
-        possibleEmployees.add(new Employees("Beata", true, true, true, true, true, true, 535.00));
-        possibleEmployees.add(new Employees("Karyna", true, false, false, false, false, true, 550.00));
-        possibleEmployees.add(new Employees("Julia", true, true, false, true, false, false, 560.00));
-        possibleEmployees.add(new Employees("Sebastian", true, true, true, false, true, false, 555.00));
-        possibleEmployees.add(new Employees("Patryk", true, true, true, true, true, true, 570.00));
-        possibleEmployees.add(new Employees("Stanisław", true, true, true, true, true, true, 650.00));
-
+        listAdder.possibleEmployesAdder(possibleEmployees);
         //List of 3 friends that. With random skills
-        int firendSkills = random.nextInt(100) + 1;
-        if (firendSkills <= 20) {
-            Employees friend1 = new Employees("Krystian", true, true, true, true, true, true, null);
-            friend1.projectSalary = 12500.00;
-            friend1.workingOnProjectDays = 12;
-            friend1.failureChanace = 0;
-            friendEmployees.add(friend1);
-            Employees friend2 = new Employees("Krystian", true, true, false, true, false, true, null);
-            friend2.projectSalary = 9250.00;
-            friend2.workingOnProjectDays = 18;
-            friend2.failureChanace = 12;
-            friendEmployees.add(friend2);
-            Employees friend3 = new Employees("Krystian", true, true, true, true, true, true, null);
-            friend3.projectSalary = 6500.00;
-            friend3.workingOnProjectDays = 22;
-            friend3.failureChanace = 31;
-            friendEmployees.add(friend3);
-        } else if (firendSkills > 20 && firendSkills <= 60) {
-            Employees friend1 = new Employees("Krystian", true, true, true, true, true, true, null);
-            friend1.projectSalary = 13000.00;
-            friend1.workingOnProjectDays = 15;
-            friend1.failureChanace = 0;
-            friendEmployees.add(friend1);
-            Employees friend2 = new Employees("Krystian", true, true, true, false, true, true, null);
-            friend2.projectSalary = 9000.00;
-            friend2.workingOnProjectDays = 20;
-            friend2.failureChanace = 15;
-            friendEmployees.add(friend2);
-            Employees friend3 = new Employees("Krystian", true, false, true, true, false, false, null);
-            friend3.projectSalary = 7200.00;
-            friend3.workingOnProjectDays = 25;
-            friend3.failureChanace = 30;
-            friendEmployees.add(friend3);
-        } else if (firendSkills > 60 && firendSkills <= 100) {
-            Employees friend1 = new Employees("Krystian", true, true, true, true, true, true, null);
-            friend1.projectSalary = 16000.00;
-            friend1.workingOnProjectDays = 17;
-            friend1.failureChanace = 0;
-            friendEmployees.add(friend1);
-            Employees friend2 = new Employees("Krystian", false, false, true, true, true, false, null);
-            friend2.projectSalary = 12000.00;
-            friend2.workingOnProjectDays = 21;
-            friend2.failureChanace = 17;
-            friendEmployees.add(friend2);
-            Employees friend3 = new Employees("Krystian", false, true, false, true, false, true, null);
-            friend3.projectSalary = 9500.00;
-            friend3.workingOnProjectDays = 27;
-            friend3.failureChanace = 35;
-            friendEmployees.add(friend3);
-        }
+        listAdder.friendEmployes(friendEmployees);
 
         System.out.println(projects.get(0));
         System.out.println("Balance: " + damianGre.balance);
@@ -204,6 +62,7 @@ public class Main {
 
 
         do {
+            System.out.println("\nZEW ZEW ZEW MENU\n");
             if (newDay == true) {
                 System.out.println("\nNEW DAY!");
                 System.out.println("\nYour balance is: " + damianGre.balance);
@@ -245,8 +104,9 @@ public class Main {
                     System.out.println("It's Monday, new projects and employers are avaiable.");
                     Integer randomListsSortingNumber = random.nextInt(9) + 1; //number from 0 to 9
                     listsSortingNumber = randomListsSortingNumber;
-                    moduloMonday += 7;
-                    moduloMondayShuffle =true;
+                    moduloMondayShuffle = true;
+                    friendMondayShuffle = true;
+                    endDay = false;
                     damianGre.isWeekend = false;
                 }
             }
@@ -259,305 +119,345 @@ public class Main {
                     damianGre.balance = damianGre.balance - (damianGre.balance * 0.10);
                 }
             }
-            System.out.println("modulo Monday: " + moduloMonday);
-            System.out.println("modulo Saturday: " + moduloSaturday);
-            System.out.println("modulo Sunday: " + moduloSunday);
-            System.out.println("Day: " + damianGre.dayCounter);
+            do {
+                System.out.println("MENU WEWNNETRZNE");
+                System.out.println("modulo Monday: " + moduloMonday);
+                System.out.println("modulo Saturday: " + moduloSaturday);
+                System.out.println("modulo Sunday: " + moduloSunday);
+                System.out.println("Day: " + damianGre.dayCounter);
+                System.out.println("FRIEND BOOL SZUFLER " + friendMondayShuffle);
 
-            System.out.println("\nChoose Your action.\n" +
-                    "Enter '1' to check list of available work projects.\n" +
-                    "Enter '2' to check potential employees.\n" +
-                    "Enter '3' to check friends that can do projects by itself.\n" +
-                    "Enter '4' to check projects in progress.\n" +
-                    "Enter '5' print your employees.\n" +
-                    "Enter '6' to fire employees.\n" +
-                    "Enter '7' End day.\n" +
-                    "Enter '0' To end application!");
+                System.out.println("\nChoose Your action.\n" +
+                        "Enter '1' to check list of available work projects.\n" +
+                        "Enter '2' to check potential employees.\n" +
+                        "Enter '3' to check friends that can do projects by itself.\n" +
+                        "Enter '4' to check projects in progress.\n" +
+                        "Enter '5' print your employees.\n" +
+                        "Enter '6' to fire employees.\n" +
+                        "Enter '7' End day.\n" +
+                        "Enter '0' To end application!");
 
-            int menuChoose = scanner1.nextInt();
+                int menuChoose = scanner1.nextInt();
 
-            switch (menuChoose) {
-                case 1:
-                    for (Project project : projects) {
-                        System.out.println(project);
-                    }
-                    break;
-                case 2: {
-                    System.out.println(moduloMonday);
-                    System.out.println("dayCounter: " + damianGre.dayCounter);
-                    System.out.println("dayCounter / ModuloMonday: " + damianGre.dayCounter % moduloMonday);
-                    System.out.println("isWeekend: " + damianGre.isWeekend);
-                    System.out.println("EmpolyerShuffel: " + employerSuffler);
-                    System.out.println("nextDayIs monday: " + nextDayIsMonday);
-                    System.out.println("moduloMondayShuffle: " + moduloMondayShuffle );
-                    if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
-                        System.out.println("SZUFLUJEMY");
-
-                        Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
-                        listsSortingNumber = randomListsSortingNumber;
-
-                        empolyer1 = random.nextInt(25); //number from 0 to 20
-                        empolyer2 = random.nextInt(25); //number from 0 to 20
-                        empolyer3 = random.nextInt(25); //number from 0 to 20
-                        empolyer4 = random.nextInt(25); //number from 0 to 20
-                        empolyer5 = random.nextInt(25); //number from 0 to 20
-
-
-                        Integer moduloOneCutter = 1;
-
-                        employerSuffler = false;
-
-                        for (Employees possibleEmployeesShuffle : possibleEmployees) {
-                            possibleEmployeesShuffle.canBeHired = false;
+                switch (menuChoose) {
+                    case 1:
+                        for (Project project : projects) {
+                            System.out.println(project);
                         }
-
-                        System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
-                        for (Integer x = 0; x < possibleEmployees.size(); x++) {
-                            if (x == empolyer1) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                possibleEmployees.get(x).canBeHired = true;
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                            } else if (x == empolyer2) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                possibleEmployees.get(x).canBeHired = true;
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                            } else if (x == empolyer3) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                possibleEmployees.get(x).canBeHired = true;
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                            } else if (x == empolyer4) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                possibleEmployees.get(x).canBeHired = true;
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                            } else if (x == empolyer5) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                possibleEmployees.get(x).canBeHired = true;
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                            }else if (empolyer1 > 20 || empolyer2 > 20 || empolyer3 > 20 || empolyer4 > 20|| empolyer5 > 20) {
-                                continue;
-                            }
-                            else if (empolyer1 >= 20 && empolyer2 >= 20 && empolyer3 >= 20 && empolyer4 >= 20 && empolyer5 >= 20) {
-                                System.out.println("There is ZERO empolyers to hire in this weekend");
-                            }
-                        }
-
-                        System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
-                        Integer employerNumber = scanner2.nextInt();
-                        if (employerNumber == 999) {
-                            break;
-                        } else {
-                            if (possibleEmployees.get(employerNumber).canBeHired == true) {
-                                System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
-                                possibleEmployees.get(employerNumber).isHired = true;
-                                hiredEmployees.add(possibleEmployees.get(employerNumber));
-                            } else if (possibleEmployees.get(employerNumber).isHired == true) {
-                                System.out.println("\nPerson is already hired by You.");
-                            } else {
-                                System.out.println("\nWrong employee's id.");
-                                break;
-                            }
-                        }
-                    }
-                    else {
-                        System.out.println("\nELSE SZUFFLE");
-                        System.out.println(empolyer1);
-                        System.out.println(empolyer2);
-                        System.out.println(empolyer3);
-                        System.out.println(empolyer4);
-                        System.out.println(empolyer5);
-                        Integer possibleEmployerCouinter = 0;
-                        for(Integer x = 0; x < possibleEmployees.size(); x++) {
-                            if (x == empolyer1) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                possibleEmployerCouinter++;
-                            } else if (x == empolyer2) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                possibleEmployerCouinter++;
-                            } else if (x == empolyer3) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                possibleEmployerCouinter++;
-                            } else if (x == empolyer4) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                possibleEmployerCouinter++;
-                            } else if (x == empolyer5) {
-                                if(possibleEmployees.get(x).isHired == true){
-                                    continue;
-                                }
-                                System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                possibleEmployerCouinter++;
-                            }
-                        }
-                        if(possibleEmployerCouinter == 0)
-                        {
-                            System.out.println("No more employers to hire in this weekend.");
-                            break;
-                        }
-                        System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
-                        Integer employerNumber = scanner2.nextInt();
-                        if (employerNumber == 999) {
-                            break;
-                        } else {
-                            if (possibleEmployees.get(employerNumber).canBeHired == true && possibleEmployees.get(employerNumber).isHired == false) {
-                                System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
-                                possibleEmployees.get(employerNumber).isHired = true;
-                                hiredEmployees.add(possibleEmployees.get(employerNumber));
-                            } else if (possibleEmployees.get(employerNumber).isHired == true) {
-                                System.out.println("\nPerson is already hired by You.");
-                                break;
-                            } else {
-                                System.out.println("\nWrong employee's id.");
-                                break;
-                            }
-                    }
-                }
-            }
                         break;
+                    case 2: {
+                        if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
+                            System.out.println("SZUFLUJEMY");
 
-                        case 3:
-                            if ((damianGre.dayCounter % 5 == 0) && (damianGre.isWeekend == false)) {
-                                Integer randomFriennds = random.nextInt(3) + 1;
-                                for (Integer x = 0; x < friendEmployees.size(); x++) {
-                                    System.out.println();
-                                }
-                            } else if (damianGre.isWeekend == false) {
-                                System.out.println();
-                            } else if (damianGre.isWeekend == true) {
-                                System.out.println("It is weekend so there is no possible friend employees to give project to.");
-                            }
+                            Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
+                            listsSortingNumber = randomListsSortingNumber;
 
-                            break;
-                        case 4:
-                            ;
-                            break;
-                        case 5:
-                            // DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
-                            // MOZE DODAC ZE ZMIENNA NOWA W EPOLOYE ZE BYL PRACOWNIK I JAK ROBIMY
-                            // 5 case to wyswietla ze jest pracownikiem a jak nie to ze byl a nie null?
-                            for(Integer x = 0; x < hiredEmployees.size(); x++)
-                            {
-                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                            empolyer1 = random.nextInt(25); //number from 0 to 20
+                            empolyer2 = random.nextInt(25); //number from 0 to 20
+                            empolyer3 = random.nextInt(25); //number from 0 to 20
+                            empolyer4 = random.nextInt(25); //number from 0 to 20
+                            empolyer5 = random.nextInt(25); //number from 0 to 20
+
+                            Integer moduloOneCutter = 1;
+
+                            employerSuffler = false;
+                            for (Employees possibleEmployeesShuffle : possibleEmployees) {
+                                possibleEmployeesShuffle.canBeHired = false;
                             }
-                            break;
-                        case 6: {
-                            Integer employersToFireCounter = 0;
-                            Integer nullEmployersCounter = 0;
-                            for(Integer x = 0; x < hiredEmployees.size(); x++)
-                            {
-                                if(hiredEmployees.get(x) == null){
-                                    nullEmployersCounter++;
+                            System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
+                            for (Integer x = 0; x < possibleEmployees.size(); x++) {
+                                if (x == empolyer1) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    possibleEmployees.get(x).canBeHired = true;
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                } else if (x == empolyer2) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    possibleEmployees.get(x).canBeHired = true;
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                } else if (x == empolyer3) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    possibleEmployees.get(x).canBeHired = true;
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                } else if (x == empolyer4) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    possibleEmployees.get(x).canBeHired = true;
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                } else if (x == empolyer5) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    possibleEmployees.get(x).canBeHired = true;
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                } else if (empolyer1 > 20 || empolyer2 > 20 || empolyer3 > 20 || empolyer4 > 20 || empolyer5 > 20) {
                                     continue;
-                                }else if(hiredEmployees.get(x).dayToCanBeFired == 0) {
-                                    System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
-                                    employersToFireCounter++;
+                                } else if (empolyer1 >= 20 && empolyer2 >= 20 && empolyer3 >= 20 && empolyer4 >= 20 && empolyer5 >= 20) {
+                                    System.out.println("There is ZERO empolyers to hire in this weekend");
                                 }
                             }
-                            if(employersToFireCounter == 0){
-                                System.out.println("No Employers to FIRE.");
+
+                            System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
+                            Integer employerNumber = scanner2.nextInt();
+                            if (employerNumber == 999) {
+                                break;
+                            } else {
+                                if (possibleEmployees.get(employerNumber).canBeHired == true) {
+                                    System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
+                                    possibleEmployees.get(employerNumber).isHired = true;
+                                    hiredEmployees.add(possibleEmployees.get(employerNumber));
+                                } else if (possibleEmployees.get(employerNumber).isHired == true) {
+                                    System.out.println("\nPerson is already hired by You.");
+                                } else {
+                                    System.out.println("\nWrong employee's id.");
+                                    break;
+                                }
+                            }
+                        } else {
+                            System.out.println("\nELSE SZUFFLE");
+                            System.out.println(empolyer1);
+                            System.out.println(empolyer2);
+                            System.out.println(empolyer3);
+                            System.out.println(empolyer4);
+                            System.out.println(empolyer5);
+                            Integer possibleEmployerCouinter = 0;
+                            for (Integer x = 0; x < possibleEmployees.size(); x++) {
+                                if (x == empolyer1) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                    possibleEmployerCouinter++;
+                                } else if (x == empolyer2) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                    possibleEmployerCouinter++;
+                                } else if (x == empolyer3) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                    possibleEmployerCouinter++;
+                                } else if (x == empolyer4) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                    possibleEmployerCouinter++;
+                                } else if (x == empolyer5) {
+                                    if (possibleEmployees.get(x).isHired == true) {
+                                        continue;
+                                    }
+                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
+                                    possibleEmployerCouinter++;
+                                }
+                            }
+                            if (possibleEmployerCouinter == 0) {
+                                System.out.println("No more employers to hire in this weekend.");
                                 break;
                             }
-                                System.out.println("\nTo fire employer enter his id number. If You want to quit enter: 999.");
-                                Integer employerNumberToFire = scanner3.nextInt();
-                                if (employerNumberToFire == 999) {
+                            System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
+                            Integer employerNumber = scanner2.nextInt();
+                            if (employerNumber == 999) {
+                                break;
+                            } else {
+                                if (possibleEmployees.get(employerNumber).canBeHired == true && possibleEmployees.get(employerNumber).isHired == false) {
+                                    System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
+                                    possibleEmployees.get(employerNumber).isHired = true;
+                                    hiredEmployees.add(possibleEmployees.get(employerNumber));
+                                } else if (possibleEmployees.get(employerNumber).isHired == true) {
+                                    System.out.println("\nPerson is already hired by You.");
                                     break;
                                 } else {
-                                    if (hiredEmployees.get(employerNumberToFire).isHired == true) {
-                                        System.out.println("\nYou have FIRED: " + hiredEmployees.get(employerNumberToFire).name + ".");
-                                        possibleEmployees.get(employerNumberToFire).isHired = false;
-                                        hiredEmployees.set(employerNumberToFire, null);
-                                    } else if (hiredEmployees.get(employerNumberToFire).isHired == false) {
-                                        System.out.println("\nPerson is not Your employer.");
-                                    } else {
-                                        System.out.println("\nWrong employee's id.");
-                                        break;
+                                    System.out.println("\nWrong employee's id.");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                    case 3: {
+                        if ((damianGre.dayCounter == moduloMonday || (damianGre.dayCounter == 1 && firstDay == true)) && friendMondayShuffle == true) {
+                            friendMondayShuffle = false;
+                            firendSkills = random.nextInt(100) + 1;
+                            System.out.println("Numer randomizera " + firendSkills);
+                            if (firendSkills <= 30) {
+                                for (Integer i = 0; i < friendEmployees.size()-3; i++) {
+                                    if (i % 2 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }else if(i % 3== 0){
+                                        System.out.println(friendEmployees.get(i));
                                     }
                                 }
+                            } else if (firendSkills > 30 && firendSkills <= 60) {
+                                for (Integer i = 3; i < friendEmployees.size()-3; i++) {
+                                    if (i % 4 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    } else if (i % 3 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }
                                 }
+                            } else if (firendSkills > 60 && firendSkills <= 100) {
+                                for (Integer i = 6; i < friendEmployees.size(); i++) {
+                                    if (i % 2 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }else if(i % 3== 0){
+                                        System.out.println(friendEmployees.get(i));
+                                    }
+                                }
+                            }
+                        } else {
+                            System.out.println("JESTESMY W ELSE");
+                            System.out.println("Numer randomizera" + firendSkills);
+                            if (firendSkills <= 30) {
+                                for (Integer i = 0; i < friendEmployees.size()-3; i++) {
+                                    if (i % 2 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }else if(i % 3== 0){
+                                        System.out.println(friendEmployees.get(i));
+                                    }
+                                }
+                            } else if (firendSkills > 30 && firendSkills <= 60) {
+                                for (Integer i = 3; i < friendEmployees.size()-3; i++) {
+                                    if (i % 4 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    } else if (i % 3 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }
+                                }
+                            } else if (firendSkills > 60 && firendSkills <= 100) {
+                                for (Integer i = 6; i < friendEmployees.size(); i++) {
+                                    if (i % 2 == 0) {
+                                        System.out.println(friendEmployees.get(i));
+                                    }else if(i % 3== 0){
+                                        System.out.println(friendEmployees.get(i));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                    case 4:
+                        ;
+                        break;
+                    case 5:
+                        // DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
+                        // MOZE DODAC ZE ZMIENNA NOWA W EPOLOYE ZE BYL PRACOWNIK I JAK ROBIMY
+                        // 5 case to wyswietla ze jest pracownikiem a jak nie to ze byl a nie null?
+                        for (Integer x = 0; x < hiredEmployees.size(); x++) {
+                            System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                        }
+                        break;
+                    case 6: {
+                        Integer employersToFireCounter = 0;
+                        Integer nullEmployersCounter = 0;
+                        for (Integer x = 0; x < hiredEmployees.size(); x++) {
+                            if (hiredEmployees.get(x) == null) {
+                                nullEmployersCounter++;
+                                continue;
+                            } else if (hiredEmployees.get(x).dayToCanBeFired == 0) {
+                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                                employersToFireCounter++;
+                            }
+                        }
+                        if (employersToFireCounter == 0) {
+                            System.out.println("No Employers to FIRE.");
                             break;
-                        case 7: {
-                            for (Employees employees : hiredEmployees) {
-                                if(employees.dayToCanBeFired == 0)
-                                {
-                                    continue;
-                                }
-                                employees.dayToCanBeFired--;
+                        }
+                        System.out.println("\nTo fire employer enter his id number. If You want to quit enter: 999.");
+                        Integer employerNumberToFire = scanner3.nextInt();
+                        if (employerNumberToFire == 999) {
+                            break;
+                        } else {
+                            if (hiredEmployees.get(employerNumberToFire).isHired == true) {
+                                System.out.println("\nYou have FIRED: " + hiredEmployees.get(employerNumberToFire).name + ".");
+                                possibleEmployees.get(employerNumberToFire).isHired = false;
+                                hiredEmployees.set(employerNumberToFire, null);
+                            } else if (hiredEmployees.get(employerNumberToFire).isHired == false) {
+                                System.out.println("\nPerson is not Your employer.");
+                            } else {
+                                System.out.println("\nWrong employee's id.");
+                                break;
                             }
-                            for (Employees employees : hiredEmployees) {
-                                damianGre.balance -= employees.dailySalary;
-                                System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
+                        }
+                    }
+                    break;
+                    case 7: {
+                        endDay = true;
+                        for (Employees employees : hiredEmployees) {
+                            if (employees.dayToCanBeFired == 0) {
+                                continue;
                             }
-                            System.out.println("\nDay has ended.\n");
-                            try {
-                                for (Integer timer = 1; timer > 0; timer--) {
-                                    System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia
-                                    TimeUnit.SECONDS.sleep(1);
-                                }
-                            } catch (InterruptedException ex) {
-                                ex.printStackTrace();
+                            employees.dayToCanBeFired--;
+                        }
+                        for (Employees employees : hiredEmployees) {
+                            damianGre.balance -= employees.dailySalary;
+                            System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
+                        }
+                        System.out.println("\nDay has ended.\n");
+                        try {
+                            for (Integer timer = 1; timer > 0; timer--) {
+                                System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia
+                                TimeUnit.SECONDS.sleep(1);
                             }
-                            moduloMondayShuffle = false;
-                            if (damianGre.dayCounter == 1 && firstDay == true) {
-                                firstDay = false;
-                                moduloMonday += 7;
-                                moduloMondayShuffle = true;
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        moduloMondayShuffle = false;
+
+                        if (damianGre.dayCounter == moduloMonday + 1) {
+                            moduloMonday += 7;
+                        }
+                        if (damianGre.dayCounter == 1 && firstDay == true) {
+                            firstDay = false;
+                            moduloMonday += 7;
+                            moduloMondayShuffle = true;
+                        }
+                        // WAZNE 3 TYDZIEN W PONIEDZIALEK SA 3 DNI NA RAZ sobota niedziala i poiniedzialek ogarnij te modulo
+                        if (damianGre.dayCounter == 6) {
+                            moduloSaturday += 6;
+                        }
+                        if (moduloSaturday > 0) {
+                            if (damianGre.dayCounter % moduloSaturday == 0) {
+                                moduloSaturday += 7;
                             }
-                            // WAZNE 3 TYDZIEN W PONIEDZIALEK SA 3 DNI NA RAZ sobota niedziala i poiniedzialek ogarnij te modulo
-                            if (damianGre.dayCounter == 6 ) {
-                                moduloSaturday += 6;
-                            }
-                            if(moduloSaturday > 0) {
-                                if (damianGre.dayCounter % moduloSaturday == 0) {
-                                    moduloSaturday += 7;
-                                }
-                            }
-                            if (damianGre.dayCounter == 7 ) {
+                        }
+                        if (damianGre.dayCounter == 7) {
+                            moduloSunday += 7;
+                            employerListIndexer++;
+                            nextDayIsMonday = true;
+                            employerSuffler = true;
+                        }
+                        if (moduloSunday > 0) {
+                            if (damianGre.dayCounter % moduloSunday == 0) {
                                 moduloSunday += 7;
                                 employerListIndexer++;
                                 nextDayIsMonday = true;
                                 employerSuffler = true;
                             }
-                            if(moduloSunday > 0) {
-                                if (damianGre.dayCounter % moduloSunday == 0) {
-                                    moduloSunday += 7;
-                                    employerListIndexer++;
-                                    nextDayIsMonday = true;
-                                    employerSuffler = true;
-                                }
-                            }
-
-                            damianGre.dayCounter++;
-                            newDay = true;
                         }
-                        break;
 
-                        case 0: {
-                            menuIsActive = false;
-                            System.out.println("Application has been closed succesfully.");
-                        }
-                        break;
+                        damianGre.dayCounter++;
+                        newDay = true;
                     }
-            }
-            while (menuIsActive == true) ;
-        }
+                    break;
+
+                    case 0: {
+                        menuIsActive = false;
+                        System.out.println("Application has been closed succesfully.");
+                    }
+                    break;
+                }
+            }while(endDay == false);
+        }while (menuIsActive == true) ;
+    }
 }

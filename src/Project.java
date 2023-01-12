@@ -43,8 +43,12 @@ public class Project {
         this.complexity = complexity;
     }
 
+    public void listRandomizer(List<Project> projects){
+
+    }
+
     public String toString () {
-        return "Project info - Name: " + this.projectName +". Project type(1..3): " + this.projectType + ", " + this.projectType2 + ", " + this.projectType + " . Company name: " + this.clientCompanyName + ". Workd ays to complete: " + this.amtWorkDays +
+        return "Project info - Name: " + this.projectName +". Project type(1..3): " + this.projectType + ", " + this.projectType2 + ", " + this.projectType3 + " . Company name: " + this.clientCompanyName + ". Work days to complete: " + this.amtWorkDays +
                 ". Project Finish date: " + this.finishDate + ". Project Value: " + this.valueOfProject + ". Deadline penalty: " + this.deadLinePenalty +
                 ". Payment will be proceed after: " + this.paymentDays + " days. ";
     }

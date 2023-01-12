@@ -1,3 +1,7 @@
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Employees {
     String name;
     Boolean frontEnd;
@@ -24,6 +28,7 @@ public class Employees {
         this.wordPress = wordPress;
         this.dailySalary = dailySalary ;
     }
+
 
     public String toString(){
         return "Person's name: " + this.name + ". Known technologies(false=doesn't know the technology): " +"Front end- "+this.frontEnd +". Backend- " + this.backEnd+
