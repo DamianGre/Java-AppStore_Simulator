@@ -95,6 +95,19 @@ public class Main {
                 System.out.println("\nNEW DAY!");
                 System.out.println("\nYour balance is: " + damianGre.balance);
                 newDay = false;
+                for(Project projects : myProjectsInWork){
+                    if(projects.amtWorkDays == 0){
+                        System.out.println("Projekt: " + projects + " Został zakończony. Wynagrodzenie zostało wypłacone w kwocie: " + projects.valueOfProject);
+                        damianGre.balance += projects.valueOfProject;
+                        projects.completed = true;
+                        continue;
+                    }
+                    if(damianGre.isWeekend == false){
+                        projects.amtWorkDays--;
+                    }
+                }
+                System.out.println("\nYour balance is: " + damianGre.balance);
+
             }
 
             if (damianGre.dayCounter == 1 && firstDay == true) {
@@ -134,6 +147,7 @@ public class Main {
                     listsSortingNumber = randomListsSortingNumber;
                     moduloMondayShuffle = true;
                     friendMondayShuffle = true;
+                    projectSuffler=true;
                     endDay = false;
                     damianGre.isWeekend = false;
                 }
@@ -154,6 +168,7 @@ public class Main {
                 System.out.println("modulo Sunday: " + moduloSunday);
                 System.out.println("Day: " + damianGre.dayCounter);
                 System.out.println("FRIEND BOOL SZUFLER " + friendMondayShuffle);
+                System.out.println("PROJECT RANDOMIZER: " + listsSortingNumberProject);
 
                 System.out.println("\nChoose Your action.\n" +
                         "Enter '1' to check list of available work projects.\n" +
@@ -180,7 +195,7 @@ public class Main {
                             switch (listsSortingNumberProject) {
                                 case 1: {
                                     for (Integer i = 0; i < projectsTier1_1.size(); i++) {
-                                        if (projectsTier1_1.get(i).activeInWork == true) {
+                                        if (projectsTier1_1.get(i).activeInWork == true || projectsTier1_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_1.get(i));
@@ -194,22 +209,29 @@ public class Main {
                                         System.out.println("Zła cyfra.");
                                         break;
                                     }
-                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {
-                                            projectsTier1_1.get(proejctIndex).activeInWork = true;
-                                            myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
-                                            System.out.println("Projekt wzięty");
-                                            break;
+                                    if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {
+                                        for(Employees employees: hiredEmployees){
+                                            if(projectsTier1_1.get(proejctIndex).projectType.equals(employees.projectCanWork)) {      // TO MUSISZ DO RESZTY DAĆ A NAJLEPIEJ WKOŃCU ZRÓ BETODY DO SWITCHY A NIE
+                                                    projectsTier1_1.get(proejctIndex).activeInWork = true;                           // A Nie taka popelina!!!!!
+                                                    myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
+                                                    System.out.println("Projekt wzięty");
+                                                    break;
+                                            }
                                         }
-                                        if (projectsTier1_1.get(proejctIndex).activeInWork == true) {
-                                            System.out.println("Pracownik jest już zatrudniony");
-                                        } else {
-                                            System.out.println("Wpisałeś złe dane.");
-                                        }
+                                    }
+                                    if (projectsTier1_1.get(proejctIndex).activeInWork == true) {
+                                        System.out.println("Projekt jest już wzięty");
+                                    }else if(projectsTier1_1.get(proejctIndex).completed == true){
+                                        System.out.println("Projekt Zakończony.");
+
+                                    }else {
+                                        System.out.println("Wpisałeś złe dane.");
+                                    }
                                 }
                                 break;
                                 case 2: {
                                     for (Integer i = 0; i < projectsTier1_2.size(); i++) {
-                                        if (projectsTier1_2.get(i).activeInWork == true) {
+                                        if (projectsTier1_2.get(i).activeInWork == true || projectsTier1_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_2.get(i));
@@ -231,6 +253,9 @@ public class Main {
                                         }
                                         if (projectsTier1_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier1_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -238,7 +263,7 @@ public class Main {
                                 break;
                                 case 3: {
                                     for (Integer i = 0; i < projectsTier1_3.size(); i++) {
-                                        if (projectsTier1_3.get(i).activeInWork == true) {
+                                        if (projectsTier1_3.get(i).activeInWork == true || projectsTier1_3.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_3.get(i));
@@ -261,6 +286,9 @@ public class Main {
                                         }
                                         if (projectsTier1_3.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier1_3.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -269,7 +297,7 @@ public class Main {
                                 break;
                                 case 4: {
                                     for (Integer i = 0; i < projectsTier2_1.size(); i++) {
-                                        if (projectsTier2_1.get(i).activeInWork == true) {
+                                        if (projectsTier2_1.get(i).activeInWork == true || projectsTier2_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_1.get(i));
@@ -291,6 +319,9 @@ public class Main {
                                         }
                                         if (projectsTier2_1.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_1.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -298,7 +329,7 @@ public class Main {
                                 break;
                                 case 5: {
                                     for (Integer i = 0; i < projectsTier2_2.size(); i++) {
-                                        if (projectsTier2_2.get(i).activeInWork == true) {
+                                        if (projectsTier2_2.get(i).activeInWork == true || projectsTier2_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_2.get(i));
@@ -320,6 +351,9 @@ public class Main {
                                         }
                                         if (projectsTier2_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -327,7 +361,7 @@ public class Main {
                                 break;
                                 case 6: {
                                     for (Integer i = 0; i < projectsTier2_3.size(); i++) {
-                                        if (projectsTier2_3.get(i).activeInWork == true) {
+                                        if (projectsTier2_3.get(i).activeInWork == true || projectsTier2_3.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_3.get(i));
@@ -349,6 +383,9 @@ public class Main {
                                         }
                                         if (projectsTier2_3.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_3.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -356,7 +393,7 @@ public class Main {
                                 break;
                                 case 7: {
                                     for (Integer i = 0; i < projectsTier3_1.size(); i++) {
-                                        if (projectsTier3_1.get(i).activeInWork == true) {
+                                        if (projectsTier3_1.get(i).activeInWork == true || projectsTier3_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier3_1.get(i));
@@ -378,6 +415,9 @@ public class Main {
                                         }
                                         if (projectsTier3_1.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier3_1.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -385,7 +425,7 @@ public class Main {
                                 break;
                                 case 8: {
                                     for (Integer i = 0; i < projectsTier3_2.size(); i++) {
-                                        if (projectsTier3_2.get(i).activeInWork == true) {
+                                        if (projectsTier3_2.get(i).activeInWork == true || projectsTier3_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier3_2.get(i));
@@ -407,6 +447,9 @@ public class Main {
                                         }
                                         if (projectsTier3_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier3_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -422,7 +465,7 @@ public class Main {
                             switch (listsSortingNumberProject) {
                                 case 1: {
                                     for (Integer i = 0; i < projectsTier1_1.size(); i++) {
-                                        if (projectsTier1_1.get(i).activeInWork == true) {
+                                        if (projectsTier1_1.get(i).activeInWork == true || projectsTier1_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_1.get(i));
@@ -444,14 +487,17 @@ public class Main {
                                         }
                                         if (projectsTier1_1.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
-                                        } else {
+                                        }else if(projectsTier1_1.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
+                                        }else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
                                 }
                                 break;
                                 case 2: {
                                     for (Integer i = 0; i < projectsTier1_2.size(); i++) {
-                                        if (projectsTier1_2.get(i).activeInWork == true) {
+                                        if (projectsTier1_2.get(i).activeInWork == true || projectsTier1_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_2.get(i));
@@ -473,6 +519,9 @@ public class Main {
                                         }
                                         if (projectsTier1_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier1_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -480,7 +529,7 @@ public class Main {
                                 break;
                                 case 3: {
                                     for (Integer i = 0; i < projectsTier1_3.size(); i++) {
-                                        if (projectsTier1_3.get(i).activeInWork == true) {
+                                        if (projectsTier1_3.get(i).activeInWork == true || projectsTier1_3.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier1_3.get(i));
@@ -502,6 +551,9 @@ public class Main {
                                         }
                                         if (projectsTier1_3.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier1_3.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -509,7 +561,7 @@ public class Main {
                                 break;
                                 case 4: {
                                     for (Integer i = 0; i < projectsTier2_1.size(); i++) {
-                                        if (projectsTier2_1.get(i).activeInWork == true) {
+                                        if (projectsTier2_1.get(i).activeInWork == true || projectsTier2_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_1.get(i));
@@ -531,6 +583,9 @@ public class Main {
                                         }
                                         if (projectsTier2_1.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_1.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -538,7 +593,7 @@ public class Main {
                                 break;
                                 case 5: {
                                     for (Integer i = 0; i < projectsTier2_2.size(); i++) {
-                                        if (projectsTier2_2.get(i).activeInWork == true) {
+                                        if (projectsTier2_2.get(i).activeInWork == true || projectsTier2_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_2.get(i));
@@ -560,6 +615,9 @@ public class Main {
                                         }
                                         if (projectsTier2_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -567,7 +625,7 @@ public class Main {
                                 break;
                                 case 6: {
                                     for (Integer i = 0; i < projectsTier2_3.size(); i++) {
-                                        if (projectsTier2_3.get(i).activeInWork == true) {
+                                        if (projectsTier2_3.get(i).activeInWork == true || projectsTier2_3.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier2_3.get(i));
@@ -589,6 +647,9 @@ public class Main {
                                         }
                                         if (projectsTier2_3.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier2_3.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -596,7 +657,7 @@ public class Main {
                                 break;
                                 case 7: {
                                     for (Integer i = 0; i < projectsTier3_1.size(); i++) {
-                                        if (projectsTier3_1.get(i).activeInWork == true) {
+                                        if (projectsTier3_1.get(i).activeInWork == true || projectsTier3_1.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier3_1.get(i));
@@ -618,6 +679,9 @@ public class Main {
                                         }
                                         if (projectsTier3_1.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier3_1.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
@@ -625,7 +689,7 @@ public class Main {
                                 break;
                                 case 8: {
                                     for (Integer i = 0; i < projectsTier3_2.size(); i++) {
-                                        if (projectsTier3_2.get(i).activeInWork == true) {
+                                        if (projectsTier3_2.get(i).activeInWork == true || projectsTier3_2.get(i).completed == true) {
                                             continue;
                                         }
                                         System.out.println("Projekt indeks = " + i + " " + projectsTier3_2.get(i));
@@ -647,6 +711,9 @@ public class Main {
                                         }
                                         if (projectsTier3_2.get(proejctIndex).activeInWork == true) {
                                             System.out.println("Pracownik jest już zatrudniony");
+                                        }else if(projectsTier3_2.get(proejctIndex).completed == true){
+                                            System.out.println("Projekt Zakończony.");
+
                                         } else {
                                             System.out.println("Wpisałeś złe dane.");
                                         }
