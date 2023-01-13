@@ -20,6 +20,7 @@ public class Project {
     ProjectType projectType;
     ProjectType projectType2;
     ProjectType projectType3;
+    Boolean activeInWork = false;
     Date finishDate;
     Double valueOfProject;
     Double deadLinePenalty;

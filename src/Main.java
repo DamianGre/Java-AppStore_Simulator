@@ -15,49 +15,77 @@ public class Main {
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
         Scanner scanner3 = new Scanner(System.in);
+        Scanner scanner4 = new Scanner(System.in);
+        Scanner scanner5 = new Scanner(System.in);
+
 
         ListAdder listAdder = new ListAdder();
 
         Boolean menuIsActive = true;
         Boolean newDay = false;
         Boolean firstDay = true;
-        Boolean nextDayIsMonday = true;
         Boolean employerSuffler = true;
+        Boolean projectSuffler = true;
         Boolean friendMondayShuffle =true;
         Boolean endDay = false;
-        Integer weeklyProjectListSearcher, weeklyEmployeesListSearcher, weeklyFriendsListSearcher;
+        Boolean nextDayIsMonday = false;
         Integer moduloMonday = 1;
+        Integer listsSortingNumber = 0;
+        Integer friendListsSortingNumber = 0;
+        Integer listsSortingNumberProject = 0;
         Integer firendSkills = 0;
         Boolean moduloMondayShuffle = true;
         Integer moduloSaturday = 0;
         Integer moduloSunday = 0;
-        Integer employerListIndexer = 0;
         Integer empolyer1 = 0, empolyer2 = 0, empolyer3 = 0, empolyer4 = 0, empolyer5 = 0;
-        Integer listsSortingNumber = 3;
+
+
+        List<Project> myProjectsInWork = new ArrayList<Project>();
+        List<Employees> hiredEmployees = new ArrayList<Employees>();
+
+        List<Project> projectsTier1_1 = new ArrayList<Project>();
+        List<Project> projectsTier1_2 = new ArrayList<Project>();
+        List<Project> projectsTier1_3 = new ArrayList<Project>();
+        List<Project> projectsTier2_1 = new ArrayList<Project>();
+        List<Project> projectsTier2_2 = new ArrayList<Project>();
+        List<Project> projectsTier2_3 = new ArrayList<Project>();
+        List<Project> projectsTier3_1 = new ArrayList<Project>();
+        List<Project> projectsTier3_2 = new ArrayList<Project>();
+
+        listAdder.possibleProjectAdderTier1_1(projectsTier1_1);
+        listAdder.possibleProjectAdderTier1_2(projectsTier1_2);
+        listAdder.possibleProjectAdderTier1_3(projectsTier1_3);
+        listAdder.possibleProjectAdderTier2_1(projectsTier2_1);
+        listAdder.possibleProjectAdderTier2_2(projectsTier2_2);
+        listAdder.possibleProjectAdderTier2_3(projectsTier2_3);
+        listAdder.possibleProjectAdderTier3_1(projectsTier3_1);
+        listAdder.possibleProjectAdderTier3_2(projectsTier3_2);
+
+
+        List<Employees> friendEmployees1 = new ArrayList<Employees>();
+        List<Employees> friendEmployees2 = new ArrayList<Employees>();
+        List<Employees> friendEmployees3 = new ArrayList<Employees>();
+
+        listAdder.friendEmployesAdder(friendEmployees1, friendEmployees2, friendEmployees3);
+
+        List<Employees> possibleEmployees1_1 = new ArrayList<Employees>();
+        List<Employees> possibleEmployees1_2 = new ArrayList<Employees>();
+        List<Employees> possibleEmployees1_3 = new ArrayList<Employees>();
+        List<Employees> possibleEmployees1_4 = new ArrayList<Employees>();
+        List<Employees> possibleEmployees1_5 = new ArrayList<Employees>();
+        List<Employees> possibleEmployees1_6 = new ArrayList<Employees>();
+
+        listAdder.possibleEmployesAdder1_1(possibleEmployees1_1);
+        listAdder.possibleEmployesAdder1_2(possibleEmployees1_2);
+        listAdder.possibleEmployesAdder1_3(possibleEmployees1_3);
+        listAdder.possibleEmployesAdder1_4(possibleEmployees1_4);
+        listAdder.possibleEmployesAdder1_5(possibleEmployees1_5);
+        listAdder.possibleEmployesAdder1_6(possibleEmployees1_6);
 
         Company damianGre = new Company("DamianGre");
 
-        List<Project> projects = new ArrayList<Project>();
-        List<Employees> possibleEmployees = new ArrayList<Employees>();
-        List<Employees> hiredEmployees = new ArrayList<Employees>();
-        List<Employees> weeklyPossibleEmployesList = new ArrayList<Employees>();
-        List<Employees> friendEmployees = new ArrayList<Employees>();
-        List<Employees> hiredFriendEmployees = new ArrayList<Employees>();
-        List<List> weeklyPossibleEmployes = new ArrayList<List>();
+        damianGre.balance = 10000.0;
 
-
-        //Projects to pickup by random generator
-        listAdder.possibleProjectAdderTier1(projects);
-        listAdder.possibleProjectAdderTier2(projects);
-        listAdder.possibleProjectAdderTier3(projects);
-        //List of 20 employees to hire
-        listAdder.possibleEmployesAdder(possibleEmployees);
-        //List of 3 friends that. With random skills
-        listAdder.friendEmployes(friendEmployees);
-
-        System.out.println(projects.get(0));
-        System.out.println("Balance: " + damianGre.balance);
-        damianGre.acceptProject(projects.get(0));
         System.out.println("Balance: " + damianGre.balance);
 
 
@@ -137,258 +165,1106 @@ public class Main {
                         "Enter '7' End day.\n" +
                         "Enter '0' To end application!");
 
-                int menuChoose = scanner1.nextInt();
+                Integer menuChoose = scanner1.nextInt();
 
                 switch (menuChoose) {
-                    case 1:
-                        for (Project project : projects) {
-                            System.out.println(project);
+                    case 1: {
+                        Integer proejctIndex;
+                        if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && projectSuffler == true)) {
+                            System.out.println("Projkety do wyboru");
+                            projectSuffler = false;
+
+                            Integer randomListsSortingNumberProject = random.nextInt(8) + 1; //number from 1 to 6
+                            listsSortingNumberProject = randomListsSortingNumberProject;
+
+                            switch (listsSortingNumberProject) {
+                                case 1: {
+                                    for (Integer i = 0; i < projectsTier1_1.size(); i++) {
+                                        if (projectsTier1_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_1.get(i));
+                                    }
+                                        System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                        proejctIndex = scanner4.nextInt();
+                                        if(proejctIndex == 999){
+                                            break;
+                                        }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {
+                                            projectsTier1_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 2: {
+                                    for (Integer i = 0; i < projectsTier1_2.size(); i++) {
+                                        if (projectsTier1_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        return;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_2.size()) {
+                                            projectsTier1_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 3: {
+                                    for (Integer i = 0; i < projectsTier1_3.size(); i++) {
+                                        if (projectsTier1_3.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_3.get(i));
+                                    }
+
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_3.size()) {
+                                            projectsTier1_3.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_3.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_3.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+
+                                }
+                                break;
+                                case 4: {
+                                    for (Integer i = 0; i < projectsTier2_1.size(); i++) {
+                                        if (projectsTier2_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_1.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_1.size()) {
+                                            projectsTier2_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 5: {
+                                    for (Integer i = 0; i < projectsTier2_2.size(); i++) {
+                                        if (projectsTier2_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_2.size()) {
+                                            projectsTier2_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 6: {
+                                    for (Integer i = 0; i < projectsTier2_3.size(); i++) {
+                                        if (projectsTier2_3.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_3.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_3.size()) {
+                                            projectsTier2_3.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_3.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_3.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 7: {
+                                    for (Integer i = 0; i < projectsTier3_1.size(); i++) {
+                                        if (projectsTier3_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier3_1.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier3_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier3_1.size()) {
+                                            projectsTier3_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier3_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier3_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 8: {
+                                    for (Integer i = 0; i < projectsTier3_2.size(); i++) {
+                                        if (projectsTier3_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier3_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier3_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier3_2.size()) {
+                                            projectsTier3_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier3_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier3_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                            }
+                        }else{
+                            if(damianGre.isWeekend == true){
+                                System.out.println("Jest weekend nie możesz nikogo zatrudniać ani brać nowych projetków.");
+                                break;
+                            }
+                            System.out.println("Projkety do wyboru");
+                            switch (listsSortingNumberProject) {
+                                case 1: {
+                                    for (Integer i = 0; i < projectsTier1_1.size(); i++) {
+                                        if (projectsTier1_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_1.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {
+                                            projectsTier1_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 2: {
+                                    for (Integer i = 0; i < projectsTier1_2.size(); i++) {
+                                        if (projectsTier1_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_2.size()) {
+                                            projectsTier1_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 3: {
+                                    for (Integer i = 0; i < projectsTier1_3.size(); i++) {
+                                        if (projectsTier1_3.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier1_3.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier1_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier1_3.size()) {
+                                            projectsTier1_3.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier1_3.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier1_3.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 4: {
+                                    for (Integer i = 0; i < projectsTier2_1.size(); i++) {
+                                        if (projectsTier2_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_1.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_1.size()) {
+                                            projectsTier2_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 5: {
+                                    for (Integer i = 0; i < projectsTier2_2.size(); i++) {
+                                        if (projectsTier2_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_2.size()) {
+                                            projectsTier2_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 6: {
+                                    for (Integer i = 0; i < projectsTier2_3.size(); i++) {
+                                        if (projectsTier2_3.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier2_3.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier2_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier2_3.size()) {
+                                            projectsTier2_3.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier2_3.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier2_3.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 7: {
+                                    for (Integer i = 0; i < projectsTier3_1.size(); i++) {
+                                        if (projectsTier3_1.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier3_1.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier3_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier3_1.size()) {
+                                            projectsTier3_1.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier3_1.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier3_1.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 8: {
+                                    for (Integer i = 0; i < projectsTier3_2.size(); i++) {
+                                        if (projectsTier3_2.get(i).activeInWork == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Projekt indeks = " + i + " " + projectsTier3_2.get(i));
+                                    }
+                                    System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
+                                    proejctIndex = scanner4.nextInt();
+                                    if(proejctIndex == 999){
+                                        break;
+                                    }
+                                    if (proejctIndex < 0 ||  proejctIndex > projectsTier3_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (proejctIndex >= 0 && proejctIndex < projectsTier3_2.size()) {
+                                            projectsTier3_2.get(proejctIndex).activeInWork = true;
+                                            myProjectsInWork.add(projectsTier3_2.get(proejctIndex));
+                                            System.out.println("Projekt wzięty");
+                                            break;
+                                        }
+                                        if (projectsTier3_2.get(proejctIndex).activeInWork == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                            }
                         }
+                    }
                         break;
                     case 2: {
-                        if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
-                            System.out.println("SZUFLUJEMY");
+                        Integer employeeIndex;
 
-                            Integer randomListsSortingNumber = random.nextInt(5) + 1; //number from 1 to 5
+                        if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
+                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu");
+                            employerSuffler = false;
+
+                            Integer randomListsSortingNumber = random.nextInt(6) + 1; //number from 1 to 6
                             listsSortingNumber = randomListsSortingNumber;
 
-                            empolyer1 = random.nextInt(25); //number from 0 to 20
-                            empolyer2 = random.nextInt(25); //number from 0 to 20
-                            empolyer3 = random.nextInt(25); //number from 0 to 20
-                            empolyer4 = random.nextInt(25); //number from 0 to 20
-                            empolyer5 = random.nextInt(25); //number from 0 to 20
-
-                            Integer moduloOneCutter = 1;
-
-                            employerSuffler = false;
-                            for (Employees possibleEmployeesShuffle : possibleEmployees) {
-                                possibleEmployeesShuffle.canBeHired = false;
-                            }
-                            System.out.println("Employees to hire: "); // MUSZE DODAC ZE JAK GO NIE MA NA LISCIE TO GO NIE MOZNA HIRE
-                            for (Integer x = 0; x < possibleEmployees.size(); x++) {
-                                if (x == empolyer1) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                            switch (listsSortingNumber) {
+                                case 1: {
+                                    for (Integer i = 0; i < possibleEmployees1_1.size(); i++) {
+                                        if (possibleEmployees1_1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_1.get(i));
                                     }
-                                    possibleEmployees.get(x).canBeHired = true;
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                } else if (x == empolyer2) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
                                     }
-                                    possibleEmployees.get(x).canBeHired = true;
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                } else if (x == empolyer3) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
                                     }
-                                    possibleEmployees.get(x).canBeHired = true;
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                } else if (x == empolyer4) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
-                                    }
-                                    possibleEmployees.get(x).canBeHired = true;
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                } else if (x == empolyer5) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
-                                    }
-                                    possibleEmployees.get(x).canBeHired = true;
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                } else if (empolyer1 > 20 || empolyer2 > 20 || empolyer3 > 20 || empolyer4 > 20 || empolyer5 > 20) {
-                                    continue;
-                                } else if (empolyer1 >= 20 && empolyer2 >= 20 && empolyer3 >= 20 && empolyer4 >= 20 && empolyer5 >= 20) {
-                                    System.out.println("There is ZERO empolyers to hire in this weekend");
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_1.size()) {
+                                            possibleEmployees1_1.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_1.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_1.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
                                 }
-                            }
-
-                            System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
-                            Integer employerNumber = scanner2.nextInt();
-                            if (employerNumber == 999) {
                                 break;
-                            } else {
-                                if (possibleEmployees.get(employerNumber).canBeHired == true) {
-                                    System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
-                                    possibleEmployees.get(employerNumber).isHired = true;
-                                    hiredEmployees.add(possibleEmployees.get(employerNumber));
-                                } else if (possibleEmployees.get(employerNumber).isHired == true) {
-                                    System.out.println("\nPerson is already hired by You.");
-                                } else {
-                                    System.out.println("\nWrong employee's id.");
-                                    break;
+                                case 2: {
+                                    for (Integer i = 0; i < possibleEmployees1_2.size(); i++) {
+                                        if (possibleEmployees1_2.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_2.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_2.size()) {
+                                            possibleEmployees1_2.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_2.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_2.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
                                 }
-                            }
-                        } else {
-                            System.out.println("\nELSE SZUFFLE");
-                            System.out.println(empolyer1);
-                            System.out.println(empolyer2);
-                            System.out.println(empolyer3);
-                            System.out.println(empolyer4);
-                            System.out.println(empolyer5);
-                            Integer possibleEmployerCouinter = 0;
-                            for (Integer x = 0; x < possibleEmployees.size(); x++) {
-                                if (x == empolyer1) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                                break;
+                                case 3: {
+                                    for (Integer i = 0; i < possibleEmployees1_3.size(); i++) {
+                                        if (possibleEmployees1_3.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_3.get(i));
                                     }
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                    possibleEmployerCouinter++;
-                                } else if (x == empolyer2) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
                                     }
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                    possibleEmployerCouinter++;
-                                } else if (x == empolyer3) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
                                     }
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                    possibleEmployerCouinter++;
-                                } else if (x == empolyer4) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
-                                    }
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                    possibleEmployerCouinter++;
-                                } else if (x == empolyer5) {
-                                    if (possibleEmployees.get(x).isHired == true) {
-                                        continue;
-                                    }
-                                    System.out.println("Employer id number is: " + x + ". " + possibleEmployees.get(x));
-                                    possibleEmployerCouinter++;
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_3.size()) {
+                                            possibleEmployees1_3.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_3.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_3.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
                                 }
-                            }
-                            if (possibleEmployerCouinter == 0) {
-                                System.out.println("No more employers to hire in this weekend.");
+
+                                break;
+                                case 4: {
+                                    for (Integer i = 0; i < possibleEmployees1_4.size(); i++) {
+                                        if (possibleEmployees1_1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_4.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_4.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_4.size()) {
+                                            possibleEmployees1_4.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_4.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_4.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 5: {
+                                    for (Integer i = 0; i < possibleEmployees1_5.size(); i++) {
+                                        if (possibleEmployees1_5.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_5.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_5.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_5.size()) {
+                                            possibleEmployees1_5.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_5.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_5.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 6: {
+                                    for (Integer i = 0; i < possibleEmployees1_6.size(); i++) {
+                                        if (possibleEmployees1_6.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_6.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_6.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if (employeeIndex >= 0 && employeeIndex < possibleEmployees1_6.size()) {
+                                            possibleEmployees1_6.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_6.get(employeeIndex));
+                                            break;
+                                        }
+                                        if (possibleEmployees1_6.get(employeeIndex).isHired == true) {
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        } else {
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                default: {
+                                    System.out.println("Błąd.");
+                                }
                                 break;
                             }
-                            System.out.println("\nIf u want to hire employee enter his id number. If You want to quit enter: 999.");
-                            Integer employerNumber = scanner2.nextInt();
-                            if (employerNumber == 999) {
+                        }
+                        else{
+                            if(damianGre.isWeekend == true){
+                                System.out.println("Jest weekend nie możesz nikogo zatrudniać ani brać nowych projetków.");
                                 break;
-                            } else {
-                                if (possibleEmployees.get(employerNumber).canBeHired == true && possibleEmployees.get(employerNumber).isHired == false) {
-                                    System.out.println("\nYou have hired " + possibleEmployees.get(employerNumber).name + ".");
-                                    possibleEmployees.get(employerNumber).isHired = true;
-                                    hiredEmployees.add(possibleEmployees.get(employerNumber));
-                                } else if (possibleEmployees.get(employerNumber).isHired == true) {
-                                    System.out.println("\nPerson is already hired by You.");
-                                    break;
-                                } else {
-                                    System.out.println("\nWrong employee's id.");
-                                    break;
+                            }
+                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu");
+
+                            switch(listsSortingNumber){
+                                case 1: {
+                                    for (Integer i = 0; i < possibleEmployees1_1.size(); i++) {
+                                        if (possibleEmployees1_1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_1.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_1.size()) {
+                                            possibleEmployees1_1.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_1.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_1.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
                                 }
+                                break;
+                                case 2:{
+                                    for (Integer i = 0; i < possibleEmployees1_2.size(); i++) {
+                                        if (possibleEmployees1_2.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_2.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_2.size()) {
+                                            possibleEmployees1_2.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_2.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_2.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 3:{
+                                    for (Integer i = 0; i < possibleEmployees1_3.size(); i++) {
+                                        if (possibleEmployees1_3.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_3.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_3.size()) {
+                                            possibleEmployees1_3.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_3.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_3.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 4:{
+                                    for (Integer i = 0; i < possibleEmployees1_4.size(); i++) {
+                                        if (possibleEmployees1_1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_4.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_4.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_4.size()) {
+                                            possibleEmployees1_4.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_4.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_4.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 5:{
+                                    for (Integer i = 0; i < possibleEmployees1_5.size(); i++) {
+                                        if (possibleEmployees1_5.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_5.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_5.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_1.size()) {
+                                            possibleEmployees1_5.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_5.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_5.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                case 6:{
+                                    for (Integer i = 0; i < possibleEmployees1_6.size(); i++) {
+                                        if (possibleEmployees1_6.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + possibleEmployees1_6.get(i));
+                                    }
+                                        System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                        employeeIndex = scanner4.nextInt();
+                                    if(employeeIndex == 999){
+                                        break;
+                                    }
+                                    if (employeeIndex < 0 ||  employeeIndex > possibleEmployees1_6.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                        if(employeeIndex >=0 && employeeIndex < possibleEmployees1_6.size()) {
+                                            possibleEmployees1_6.get(employeeIndex).isHired = true;
+                                            hiredEmployees.add(possibleEmployees1_6.get(employeeIndex));
+                                            break;
+                                        }
+                                        if(possibleEmployees1_6.get(employeeIndex).isHired == true){
+                                            System.out.println("Pracownik jest już zatrudniony");
+                                        }else{
+                                            System.out.println("Wpisałeś złe dane.");
+                                        }
+                                }
+                                break;
+                                default:{
+                                    System.out.println("Błąd.");
+                                }
+                                break;
                             }
                         }
                     }
                     break;
 
                     case 3: {
-                        if ((damianGre.dayCounter == moduloMonday || (damianGre.dayCounter == 1 && firstDay == true)) && friendMondayShuffle == true) {
+                        Integer friendEmployeeIndex;
+
+                        if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && friendMondayShuffle == true)) {
+                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu");
                             friendMondayShuffle = false;
-                            firendSkills = random.nextInt(100) + 1;
-                            System.out.println("Numer randomizera " + firendSkills);
-                            if (firendSkills <= 30) {
-                                for (Integer i = 0; i < friendEmployees.size()-3; i++) {
-                                    if (i % 2 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    }else if(i % 3== 0){
-                                        System.out.println(friendEmployees.get(i));
+
+                            Integer randomListsSortingNumber = random.nextInt(3) + 1; //number from 1 to 3
+                            friendListsSortingNumber = randomListsSortingNumber;
+
+                            switch (friendListsSortingNumber) {
+                                case 1: {
+                                    for (Integer i = 0; i < friendEmployees1.size(); i++) {
+                                        if (friendEmployees1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees1.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees1.size()) {
+                                        friendEmployees1.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees1.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (possibleEmployees1_1.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
                                     }
                                 }
-                            } else if (firendSkills > 30 && firendSkills <= 60) {
-                                for (Integer i = 3; i < friendEmployees.size()-3; i++) {
-                                    if (i % 4 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    } else if (i % 3 == 0) {
-                                        System.out.println(friendEmployees.get(i));
+                                break;
+                                case 2: {
+                                    for (Integer i = 0; i < friendEmployees2.size(); i++) {
+                                        if (friendEmployees2.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees2.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees2.size()) {
+                                        friendEmployees2.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees2.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (friendEmployees2.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
                                     }
                                 }
-                            } else if (firendSkills > 60 && firendSkills <= 100) {
-                                for (Integer i = 6; i < friendEmployees.size(); i++) {
-                                    if (i % 2 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    }else if(i % 3== 0){
-                                        System.out.println(friendEmployees.get(i));
+                                break;
+                                case 3: {
+                                    for (Integer i = 0; i < friendEmployees3.size(); i++) {
+                                        if (friendEmployees3.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees3.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees3.size()) {
+                                        friendEmployees3.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees3.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (friendEmployees3.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
                                     }
                                 }
+                                break;
                             }
-                        } else {
-                            System.out.println("JESTESMY W ELSE");
-                            System.out.println("Numer randomizera" + firendSkills);
-                            if (firendSkills <= 30) {
-                                for (Integer i = 0; i < friendEmployees.size()-3; i++) {
-                                    if (i % 2 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    }else if(i % 3== 0){
-                                        System.out.println(friendEmployees.get(i));
-                                    }
-                                }
-                            } else if (firendSkills > 30 && firendSkills <= 60) {
-                                for (Integer i = 3; i < friendEmployees.size()-3; i++) {
-                                    if (i % 4 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    } else if (i % 3 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    }
-                                }
-                            } else if (firendSkills > 60 && firendSkills <= 100) {
-                                for (Integer i = 6; i < friendEmployees.size(); i++) {
-                                    if (i % 2 == 0) {
-                                        System.out.println(friendEmployees.get(i));
-                                    }else if(i % 3== 0){
-                                        System.out.println(friendEmployees.get(i));
-                                    }
-                                }
+                            break;
+                        }else{
+                            if(damianGre.isWeekend == true){
+                                System.out.println("Jest weekend nie możesz nikogo zatrudniać ani brać nowych projetków.");
+                                break;
                             }
+                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu");
+                            switch (friendListsSortingNumber) {
+                                case 1: {
+                                    for (Integer i = 0; i < friendEmployees1.size(); i++) {
+                                        if (friendEmployees1.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees1.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees1.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees1.size()) {
+                                        friendEmployees1.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees1.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (possibleEmployees1_1.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
+                                    }
+                                }
+                                break;
+                                case 2: {
+                                    for (Integer i = 0; i < friendEmployees2.size(); i++) {
+                                        if (friendEmployees2.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees2.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees2.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees2.size()) {
+                                        friendEmployees2.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees2.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (friendEmployees2.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
+                                    }
+                                }
+                                break;
+                                case 3: {
+                                    for (Integer i = 0; i < friendEmployees3.size(); i++) {
+                                        if (friendEmployees3.get(i).isHired == true) {
+                                            continue;
+                                        }
+                                        System.out.println("Pracownik indeks = " + i + " " + friendEmployees3.get(i));
+                                    }
+                                    System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
+                                    friendEmployeeIndex = scanner4.nextInt();
+                                    if (friendEmployeeIndex == 999) {
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex < 0 ||  friendEmployeeIndex > friendEmployees3.size()) {
+                                        System.out.println("Zła cyfra.");
+                                        break;
+                                    }
+                                    if (friendEmployeeIndex >= 0 && friendEmployeeIndex < friendEmployees3.size()) {
+                                        friendEmployees3.get(friendEmployeeIndex).isHired = true;
+                                        hiredEmployees.add(friendEmployees3.get(friendEmployeeIndex));
+                                        break;
+                                    }
+                                    if (friendEmployees3.get(friendEmployeeIndex).isHired == true) {
+                                        System.out.println("Pracownik jest już zatrudniony");
+                                    } else {
+                                        System.out.println("Wpisałeś złe dane.");
+                                    }
+                                }
+                                break;
+                            }
+                            break;
+                        }
+                    }
+                    case 4: {
+                        System.out.println("Pracujesz nad tymi projektami: ");
+                        for (Project projects : myProjectsInWork) {
+                            System.out.println(projects);
                         }
                     }
                     break;
-                    case 4:
-                        ;
-                        break;
-                    case 5:
-                        // DODAC ZE JAK SA SAME NULL TO NIE MA EMPLOYES
-                        // MOZE DODAC ZE ZMIENNA NOWA W EPOLOYE ZE BYL PRACOWNIK I JAK ROBIMY
-                        // 5 case to wyswietla ze jest pracownikiem a jak nie to ze byl a nie null?
+
+                    case 5: {
+
                         for (Integer x = 0; x < hiredEmployees.size(); x++) {
+                            if (hiredEmployees.get(x).isHired == false) {
+                                continue;
+                            }
                             System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
                         }
+                    }
                         break;
                     case 6: {
-                        Integer employersToFireCounter = 0;
-                        Integer nullEmployersCounter = 0;
+                        Integer fireEmployerIndex = 0;
+                        System.out.println("Oto twoi pracownicy.");
                         for (Integer x = 0; x < hiredEmployees.size(); x++) {
-                            if (hiredEmployees.get(x) == null) {
-                                nullEmployersCounter++;
+                            if (hiredEmployees.get(x).isHired == false) {
                                 continue;
-                            } else if (hiredEmployees.get(x).dayToCanBeFired == 0) {
-                                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
-                                employersToFireCounter++;
                             }
+                            System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
                         }
-                        if (employersToFireCounter == 0) {
-                            System.out.println("No Employers to FIRE.");
-                            break;
-                        }
-                        System.out.println("\nTo fire employer enter his id number. If You want to quit enter: 999.");
-                        Integer employerNumberToFire = scanner3.nextInt();
-                        if (employerNumberToFire == 999) {
-                            break;
-                        } else {
-                            if (hiredEmployees.get(employerNumberToFire).isHired == true) {
-                                System.out.println("\nYou have FIRED: " + hiredEmployees.get(employerNumberToFire).name + ".");
-                                possibleEmployees.get(employerNumberToFire).isHired = false;
-                                hiredEmployees.set(employerNumberToFire, null);
-                            } else if (hiredEmployees.get(employerNumberToFire).isHired == false) {
-                                System.out.println("\nPerson is not Your employer.");
-                            } else {
-                                System.out.println("\nWrong employee's id.");
+                            System.out.println("Wpisz index pracownika do zwolnenia lub 999 aby wyjść.");
+                            fireEmployerIndex = scanner5.nextInt();
+                             if (fireEmployerIndex == 999) {
+                                 break;
+                             }
+                            if (fireEmployerIndex < 0 ||  fireEmployerIndex > hiredEmployees.size()) {
+                                System.out.println("Zła cyfra.");
                                 break;
                             }
-                        }
+                            if(fireEmployerIndex >=0 && fireEmployerIndex < hiredEmployees.size()) {
+                                hiredEmployees.get(fireEmployerIndex).isHired = false;
+                                System.out.println("Pracownik: " +  hiredEmployees.get(fireEmployerIndex) + " Został zwolniony");
+                                break;
+                            }
+                            if(possibleEmployees1_6.get(fireEmployerIndex).isHired == false){
+                                System.out.println("Pracownik jest już zwolniony");
+                            }else{
+                                System.out.println("Wpisałeś złe dane.");
+                            }
                     }
                     break;
                     case 7: {
@@ -422,7 +1298,7 @@ public class Main {
                             moduloMonday += 7;
                             moduloMondayShuffle = true;
                         }
-                        // WAZNE 3 TYDZIEN W PONIEDZIALEK SA 3 DNI NA RAZ sobota niedziala i poiniedzialek ogarnij te modulo
+
                         if (damianGre.dayCounter == 6) {
                             moduloSaturday += 6;
                         }
@@ -433,14 +1309,12 @@ public class Main {
                         }
                         if (damianGre.dayCounter == 7) {
                             moduloSunday += 7;
-                            employerListIndexer++;
                             nextDayIsMonday = true;
                             employerSuffler = true;
                         }
                         if (moduloSunday > 0) {
                             if (damianGre.dayCounter % moduloSunday == 0) {
                                 moduloSunday += 7;
-                                employerListIndexer++;
                                 nextDayIsMonday = true;
                                 employerSuffler = true;
                             }
