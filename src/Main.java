@@ -209,10 +209,11 @@ public class Main {
                                         System.out.println("Zła cyfra.");
                                         break;
                                     }
-                                    if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {
-                                        for(Employees employees: hiredEmployees){
-                                            if(projectsTier1_1.get(proejctIndex).projectType.equals(employees.projectCanWork)) {      // TO MUSISZ DO RESZTY DAĆ A NAJLEPIEJ WKOŃCU ZRÓ BETODY DO SWITCHY A NIE
-                                                    projectsTier1_1.get(proejctIndex).activeInWork = true;                           // A Nie taka popelina!!!!!
+                                    if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {           // TO MUSISZ DO RESZTY DAĆ A NAJLEPIEJ WKOŃCU ZRÓ BETODY DO SWITCHY A NIE
+                                        for(Employees employees: hiredEmployees){                               // A Nie taka popelina!!!!!
+                                            if(projectsTier1_1.get(proejctIndex).projectType.equals(employees.projectCanWork)) {
+                                                projectsTier1_1.get(proejctIndex).thisEmployersIsWorkOnProject = employees;
+                                                    projectsTier1_1.get(proejctIndex).activeInWork = true;
                                                     myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
                                                     System.out.println("Projekt wzięty");
                                                     break;
