@@ -6,7 +6,7 @@ public class Project {
     String projectName;
     String clientCompanyName;
 
-    Employees thisEmployersIsWorkOnProject;
+    Employees employersIsWorkOnProject;
     Integer amtWorkDays;
 
     Boolean activeInWork = false;

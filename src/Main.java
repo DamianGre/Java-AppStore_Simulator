@@ -96,18 +96,24 @@ public class Main {
                 System.out.println("\nYour balance is: " + damianGre.balance);
                 newDay = false;
                 for(Project projects : myProjectsInWork){
+                    if(damianGre.isWeekend == false){
+                        projects.amtWorkDays--;
+                    }
                     if(projects.amtWorkDays == 0){
                         System.out.println("Projekt: " + projects + " Został zakończony. Wynagrodzenie zostało wypłacone w kwocie: " + projects.valueOfProject);
                         damianGre.balance += projects.valueOfProject;
                         projects.completed = true;
+                        damianGre.complatedProjects++;
+                        projects.employersIsWorkOnProject = null;
+
                         continue;
                     }
-                    if(damianGre.isWeekend == false){
-                        projects.amtWorkDays--;
-                    }
+                }
+                if(damianGre.complatedProjects == 5){
+                    System.out.println("WYGRAŁEŚ GRE!");
+                    return;
                 }
                 System.out.println("\nYour balance is: " + damianGre.balance);
-
             }
 
             if (damianGre.dayCounter == 1 && firstDay == true) {
@@ -212,11 +218,12 @@ public class Main {
                                     if (proejctIndex >= 0 && proejctIndex < projectsTier1_1.size()) {           // TO MUSISZ DO RESZTY DAĆ A NAJLEPIEJ WKOŃCU ZRÓ BETODY DO SWITCHY A NIE
                                         for(Employees employees: hiredEmployees){                               // A Nie taka popelina!!!!!
                                             if(projectsTier1_1.get(proejctIndex).projectType.equals(employees.projectCanWork)) {
-                                                projectsTier1_1.get(proejctIndex).thisEmployersIsWorkOnProject = employees;
-                                                    projectsTier1_1.get(proejctIndex).activeInWork = true;
-                                                    myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
-                                                    System.out.println("Projekt wzięty");
-                                                    break;
+                                                projectsTier1_1.get(proejctIndex).employersIsWorkOnProject = employees;
+                                                projectsTier1_1.get(proejctIndex).activeInWork = true;
+                                                employees.projectEmployerIsWorkingOn = projectsTier1_1.get(proejctIndex);
+                                                myProjectsInWork.add(projectsTier1_1.get(proejctIndex));
+                                                System.out.println("Projekt wzięty");
+                                                break;
                                             }
                                         }
                                     }

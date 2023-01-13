@@ -12,6 +12,7 @@ public class Company {
     Integer workersNumber = 0;
     Integer clients = 0;
     Boolean isWeekend = false;
+    Integer complatedProjects = 0;
 
     public Company(String companyName){
         this.companyName = companyName;

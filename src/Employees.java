@@ -10,6 +10,7 @@ public class Employees {
     Double dailySalary;
     Double projectSalary;
     Boolean isWorking;
+    Project projectEmployerIsWorkingOn;
     Integer dayToCanBeFired = 5; // only after 5 days employer can be fired
     Integer workingOnProjectDays;
     Integer failureChanace;
