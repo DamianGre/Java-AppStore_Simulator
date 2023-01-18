@@ -61,7 +61,7 @@ public class Company {
                         projects.get(proejctIndex).activeInWork = true;
                         employees.projectEmployerIsWorkingOn = projects.get(proejctIndex);
                         myProjectsInWork.add(projects.get(proejctIndex));
-                        System.out.println("Projekt: " + projects.get(proejctIndex) + ", Został wzięty");
+                        System.out.println("Wzięty projekt: " + projects.get(proejctIndex));
                         return;
                     }
                 }
@@ -75,11 +75,15 @@ public class Company {
     public void projectsPrinter(List<Project> myProjectsInWork){
         System.out.println("Pracujesz nad tymi projektami: ");
         for (Project projects : myProjectsInWork) {
+            if(projects.completed == true){
+                continue;
+            }
             System.out.println(projects);
         }
     }
 
     public void employeeChooser(List<Employees> possibleEmployees,List<Employees> hiredEmployees){
+        Integer empolyeesHiredCounter = 0;
         Scanner scanner8 = new Scanner(System.in);
         Integer employeeIndex;
         for (Integer i = 0; i < possibleEmployees.size(); i++) {
@@ -87,6 +91,11 @@ public class Company {
                 continue;
             }
             System.out.println("Pracownik indeks = " + i + " " + possibleEmployees.get(i));
+            empolyeesHiredCounter++;
+        }
+        if(empolyeesHiredCounter == 0){
+            System.out.println("Nie ma pracowników do zatrudnienia. Sprawdź w natępnym tygodniu.");
+            return;
         }
         System.out.println("Podaj index pracownika, któego chcesz zatudnić lub wpisz 999 aby wyjść: ");
         employeeIndex = scanner8.nextInt();
@@ -104,7 +113,7 @@ public class Company {
             }
             possibleEmployees.get(employeeIndex).isHired = true;
             hiredEmployees.add(possibleEmployees.get(employeeIndex));
-            System.out.println("Pracownik: " + possibleEmployees.get(employeeIndex) + ", Został zatrudniony.");
+            System.out.println("Zatrudniony pracownik: " + possibleEmployees.get(employeeIndex));
             return;
         }
             System.out.println("ZŁE DANE.");
@@ -154,7 +163,7 @@ public class Company {
             }
             if (fireEmployerIndex >= 0 && fireEmployerIndex < hiredEmployees.size()) {
                 hiredEmployees.get(fireEmployerIndex).isHired = false;
-                System.out.println("Pracownik: " + hiredEmployees.get(fireEmployerIndex) + " Został zwolniony");
+                System.out.println("Zwolniony pracownik: " + hiredEmployees.get(fireEmployerIndex));
                 return;
             }
             if (hiredEmployees.get(fireEmployerIndex).isHired == false) {
@@ -191,7 +200,7 @@ public class Company {
             }
             friendEmployees.get(friendEmployeeIndex).isHired = true;
             hiredEmployees.add(friendEmployees.get(friendEmployeeIndex));
-            System.out.println("Przyjaciel pracownik: " + friendEmployees.get(friendEmployeeIndex) + ", Został zatrudniony.");
+            System.out.println("Zatrudniony Przyjaciel pracownik: " + friendEmployees.get(friendEmployeeIndex));
             return;
         }
         System.out.println("ZŁE DANE.");

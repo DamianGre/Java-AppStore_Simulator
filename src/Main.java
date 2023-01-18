@@ -95,24 +95,6 @@ public class Main {
                 System.out.println("\nNEW DAY!");
                 System.out.println("\nYour balance is: " + damianGre.balance);
                 newDay = false;
-                for(Project projects : myProjectsInWork){
-                    if(damianGre.isWeekend == false){
-                        projects.amtWorkDays--;
-                    }
-                    if(projects.amtWorkDays == 0){
-                        System.out.println("Projekt: " + projects + " Został zakończony. Wynagrodzenie zostało wypłacone w kwocie: " + projects.valueOfProject);
-                        damianGre.balance += projects.valueOfProject;
-                        projects.completed = true;
-                        damianGre.complatedProjects++;
-                        projects.employersIsWorkOnProject = null;
-
-                        continue;
-                    }
-                }
-                if(damianGre.complatedProjects == 5){
-                    System.out.println("WYGRAŁEŚ GRE!");
-                    return;
-                }
                 System.out.println("\nYour balance is: " + damianGre.balance);
             }
 
@@ -266,7 +248,7 @@ public class Main {
                     break;
                     case 2: {
                         if ((moduloMondayShuffle == true) && (damianGre.isWeekend == false && employerSuffler == true)) {
-                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu");
+                            System.out.println("Oto lista osób do zatrudnienia w tym tygodniu:");
                             employerSuffler = false;
 
                             Integer randomListsSortingNumber = random.nextInt(6) + 1; //number from 1 to 6
@@ -391,6 +373,23 @@ public class Main {
                     }
                     break;
                     case 7: {
+                        for(Project projects : myProjectsInWork){
+                            if(damianGre.isWeekend == false){
+                                projects.amtWorkDays--;
+                            }
+                            if(projects.amtWorkDays == 0){
+                                System.out.println("\nZAKOŃCZENIE Projektu: " + projects + " . Kwota: " + projects.valueOfProject + " Została wypłącona.\n");
+                                damianGre.balance += projects.valueOfProject;
+                                projects.completed = true;
+                                damianGre.complatedProjects++;
+                                projects.employersIsWorkOnProject = null;
+                                continue;
+                            }
+                        }
+                        if(damianGre.complatedProjects == 5){
+                            System.out.println("WYGRAŁEŚ GRE!");
+                            break;
+                        }
                         endDay = true;
                         for (Employees employees : hiredEmployees) {
                             if (employees.dayToCanBeFired == 0) {
@@ -399,8 +398,14 @@ public class Main {
                             employees.dayToCanBeFired--;
                         }
                         for (Employees employees : hiredEmployees) {
-                            damianGre.balance -= employees.dailySalary;
-                            System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
+                            if(employees.isHired == true) {
+                                damianGre.balance -= employees.dailySalary;
+                                System.out.println("Your salary system has paid: " + employees.dailySalary + " To: " + employees);
+                            }
+                        }
+                        if(damianGre.balance <= 0){
+                            System.out.println("TO KONIEC GRY ZBANKRUTOWAŁEŚ!");
+                            break;
                         }
                         System.out.println("\nDay has ended.\n");
                         try {

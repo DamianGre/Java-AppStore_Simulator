@@ -39,92 +39,92 @@ public class ListAdder {
 
     public void possibleProjectAdderTier1_1(List<Project> projectsTier1_1) {
         //10 projects from 1 level complexity
-        projectsTier1_1.add(new Project("Web app", "Frontend",
-                "Hey", 5, 20000.00,
+        projectsTier1_1.add(new Project( "Frontend",
+                "Hey", 6, 9000.00,
                 1));
-        projectsTier1_1.add(new Project("SPA", "Wordpress",
-                "Spas", 3, 15000.00,
+        projectsTier1_1.add(new Project("Wordpress",
+                "Spas", 3, 3500.00,
                 1));
-        projectsTier1_1.add(new Project("Web app", "Mobile",
-                "Felinta", 3, 22000.00,
+        projectsTier1_1.add(new Project("Mobile",
+                "Felinta", 3, 2500.00,
                 1));
-        projectsTier1_1.add(new Project("Mobile App", "Backend",
-                "Gagle", 3, 25000.00,
+        projectsTier1_1.add(new Project( "Backend",
+                "Gagle", 4, 4000.00,
                 1));
     }
 
     public void possibleProjectAdderTier1_2(List<Project> projectsTier1_2) {
-        projectsTier1_2.add(new Project("Data Base", "Database",
-                "Zawiru", 3, 17500.00,
+        projectsTier1_2.add(new Project( "Database",
+                "Zawiru", 6, 7500.00,
                 1));
-        projectsTier1_2.add(new Project("Web app", "Mobile",
-                "Heyos", 5, 20000.00,
+        projectsTier1_2.add(new Project( "Mobile",
+                "Heyos", 6, 5000.00,
                 1));
-        projectsTier1_2.add(new Project("SPA", "Frontend",
-                "Spasan", 3, 15000.00,
+        projectsTier1_2.add(new Project( "Frontend",
+                "Spasan", 5, 3000.00,
                 1));
     }
     public void possibleProjectAdderTier1_3(List<Project> projectsTier1_3) {
-        projectsTier1_3.add(new Project("Web app", "Backend",
-                "Fel", 3, 22000.00,
+        projectsTier1_3.add(new Project( "Backend",
+                "Fel", 7, 9500.00,
                 1));
-        projectsTier1_3.add(new Project("Mobile App", "Wordpress",
-                "Gar", 3, 25000.00,
+        projectsTier1_3.add(new Project( "Wordpress",
+                "Gar", 8, 11000.00,
                 1));
-        projectsTier1_3.add(new Project("Data Base", "Database",
-                "Zawru", 3, 17500.00,
+        projectsTier1_3.add(new Project( "Database",
+                "Zawru", 9, 12500.00,
                 1));
     }
 
     public void possibleProjectAdderTier2_1(List<Project> projectsTier2_1) {
-        projectsTier2_1.add(new Project("Web app", "Backend",
-                "Yos", 5, 20000.00,
+        projectsTier2_1.add(new Project( "Backend",
+                "Yos", 6, 10000.00,
                 2));
-        projectsTier2_1.add(new Project("SPA", "Frontend",
-                "Ssan", 3, 15000.00,
+        projectsTier2_1.add(new Project( "Frontend",
+                "Ssan", 9, 10000.00,
                 2));
     }
 
 
     public void possibleProjectAdderTier2_2(List<Project> projectsTier2_2) {
-            projectsTier2_2.add(new Project("Web app", "Mobile",
-                    "Belinta", 3, 22000.00,
+            projectsTier2_2.add(new Project( "Mobile",
+                    "Belinta", 10, 14000.00,
                     2));
-            projectsTier2_2.add(new Project("Mobile App", "Frontend",
-                    "Gle", 3, 25000.00,
+            projectsTier2_2.add(new Project("Frontend",
+                    "Gle", 11, 11000.00,
                     2));
-            projectsTier2_2.add(new Project("Data Base", "Mobile",
-                    "Rur", 3, 17500.00,
+            projectsTier2_2.add(new Project( "Mobile",
+                    "Rur", 13, 12500.00,
                     2));
         }
     public void possibleProjectAdderTier2_3(List<Project> projectsTier2_3) {
-        projectsTier2_3.add(new Project("Web app", "Backend",
-                "Dus", 5, 20000.00,
+        projectsTier2_3.add(new Project( "Backend",
+                "Dus", 11, 13000.00,
                 2));
-        projectsTier2_3.add(new Project("SPA", "Mobile",
-                "Hus", 3, 15000.00,
+        projectsTier2_3.add(new Project( "Mobile",
+                "Hus", 12, 11000.00,
                 2));
-        projectsTier2_3.add(new Project("Web app", "Frontend",
-                "Frus", 3, 22000.00,
+        projectsTier2_3.add(new Project( "Frontend",
+                "Frus", 14, 12000.00,
                 2));
     }
 
 
     public void possibleProjectAdderTier3_1(List<Project> projectsTier3_1) {
-        projectsTier3_1.add(new Project("SPA", "Wordpress",
-                    "Lupi", 3, 15000.00,
+        projectsTier3_1.add(new Project( "Wordpress",
+                    "Lupi", 4, 4500.00,
                     3));
-        projectsTier3_1.add(new Project("Web app", "Database",
-                    "Fizu", 3, 22000.00,
+        projectsTier3_1.add(new Project( "Database",
+                    "Fizu", 6, 11000.00,
                     3));
 
     }
     public void possibleProjectAdderTier3_2(List<Project> projectsTier3_2) {
-        projectsTier3_2.add(new Project("Mobile App", "Backend",
-                "Charpu", 3, 25000.00,
+        projectsTier3_2.add(new Project( "Backend",
+                "Charpu", 5, 5000.00,
                 3));
-        projectsTier3_2.add(new Project("Data Base", "Database",
-                "Zinx", 3, 17500.00,
+        projectsTier3_2.add(new Project( "Database",
+                "Zinx", 12, 17500.00,
                 3));
     }
 
