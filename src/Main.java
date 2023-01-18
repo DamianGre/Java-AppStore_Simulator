@@ -377,19 +377,26 @@ public class Main {
                             if(damianGre.isWeekend == false){
                                 projects.amtWorkDays--;
                             }
+                            if(projects.amtWorkDays<0)
+                            {
+                                continue;
+                            }
                             if(projects.amtWorkDays == 0){
                                 System.out.println("\nZAKOŃCZENIE Projektu: " + projects + " . Kwota: " + projects.valueOfProject + " Została wypłącona.\n");
                                 damianGre.balance += projects.valueOfProject;
                                 projects.completed = true;
-                                damianGre.complatedProjects++;
+                                damianGre.completedProjects++;
+                                projects.employersIsWorkOnProject.worksOnProject = false;
                                 projects.employersIsWorkOnProject = null;
+                                projects.amtWorkDays--;
                                 continue;
                             }
                         }
-                        if(damianGre.complatedProjects == 5){
+                        if(damianGre.completedProjects == 5){
                             System.out.println("WYGRAŁEŚ GRE!");
                             break;
                         }
+
                         endDay = true;
                         for (Employees employees : hiredEmployees) {
                             if (employees.dayToCanBeFired == 0) {
@@ -460,6 +467,12 @@ public class Main {
                     break;
                 }
             }while(endDay == false);
+            if(damianGre.balance <= 0){
+                break;
+            }
+            if(damianGre.completedProjects == 5){
+                break;
+            }
         }while (menuIsActive == true) ;
     }
 }

@@ -40,7 +40,7 @@ public class ListAdder {
     public void possibleProjectAdderTier1_1(List<Project> projectsTier1_1) {
         //10 projects from 1 level complexity
         projectsTier1_1.add(new Project( "Frontend",
-                "Hey", 6, 9000.00,
+                "Hey", 6, 6500.00,
                 1));
         projectsTier1_1.add(new Project("Wordpress",
                 "Spas", 3, 3500.00,
@@ -55,7 +55,7 @@ public class ListAdder {
 
     public void possibleProjectAdderTier1_2(List<Project> projectsTier1_2) {
         projectsTier1_2.add(new Project( "Database",
-                "Zawiru", 6, 7500.00,
+                "Zawiru", 6, 7000.00,
                 1));
         projectsTier1_2.add(new Project( "Mobile",
                 "Heyos", 6, 5000.00,
@@ -66,40 +66,40 @@ public class ListAdder {
     }
     public void possibleProjectAdderTier1_3(List<Project> projectsTier1_3) {
         projectsTier1_3.add(new Project( "Backend",
-                "Fel", 7, 9500.00,
+                "Fel", 7, 6500.00,
                 1));
         projectsTier1_3.add(new Project( "Wordpress",
                 "Gar", 8, 11000.00,
                 1));
         projectsTier1_3.add(new Project( "Database",
-                "Zawru", 9, 12500.00,
+                "Zawru", 9, 10500.00,
                 1));
     }
 
     public void possibleProjectAdderTier2_1(List<Project> projectsTier2_1) {
         projectsTier2_1.add(new Project( "Backend",
-                "Yos", 6, 10000.00,
+                "Yos", 6, 5000.00,
                 2));
         projectsTier2_1.add(new Project( "Frontend",
-                "Ssan", 9, 10000.00,
+                "Ssan", 9, 9000.00,
                 2));
     }
 
 
     public void possibleProjectAdderTier2_2(List<Project> projectsTier2_2) {
             projectsTier2_2.add(new Project( "Mobile",
-                    "Belinta", 10, 14000.00,
+                    "Belinta", 10, 10000.00,
                     2));
             projectsTier2_2.add(new Project("Frontend",
-                    "Gle", 11, 11000.00,
+                    "Gle", 11, 9000.00,
                     2));
             projectsTier2_2.add(new Project( "Mobile",
-                    "Rur", 13, 12500.00,
+                    "Rur", 13, 9500.00,
                     2));
         }
     public void possibleProjectAdderTier2_3(List<Project> projectsTier2_3) {
         projectsTier2_3.add(new Project( "Backend",
-                "Dus", 11, 13000.00,
+                "Dus", 11, 10500.00,
                 2));
         projectsTier2_3.add(new Project( "Mobile",
                 "Hus", 12, 11000.00,
@@ -137,7 +137,7 @@ public class ListAdder {
                     friend2.workingOnProjectDays = 18;
                     friend2.failureChanace = 12;
                     friendEmployees1.add(friend2);
-                    Employees friend3 = new Employees("Tomasz","Database", 475.00);
+                    Employees friend3 = new Employees("Tomasz","Database", 515.00);
                     friend3.workingOnProjectDays = 22;
                     friend3.failureChanace = 31;
                     friendEmployees1.add(friend3);
@@ -146,7 +146,7 @@ public class ListAdder {
                     friend1.workingOnProjectDays = 15;
                     friend1.failureChanace = 0;
                     friendEmployees2.add(friend4);
-                    Employees friend5 = new Employees("Katarzyna", "Wordpress", 465.00);
+                    Employees friend5 = new Employees("Katarzyna", "Wordpress", 495.00);
                     friend2.workingOnProjectDays = 20;
                     friend2.failureChanace = 15;
                     friendEmployees2.add(friend5);

@@ -7,6 +7,7 @@ public class Employees {
     String projectCanWork;
     Boolean canBeHired = false;
     Boolean isHired = false;
+    Boolean worksOnProject = false;
     Double dailySalary;
     Double projectSalary;
     Boolean isWorking;
@@ -22,6 +23,6 @@ public class Employees {
 
 
     public String toString(){
-        return "Person's name: " + this.name + ". Known technologies(false=doesn't know the technology): " + this.projectCanWork;
+        return "Person's name: " + this.name + ". Known technologies: " + this.projectCanWork + ". Daily salary = " + this.dailySalary;
     }
 }

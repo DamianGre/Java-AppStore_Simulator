@@ -12,7 +12,7 @@ public class Company {
     Integer workersNumber = 0;
     Integer clients = 0;
     Boolean isWeekend = false;
-    Integer complatedProjects = 0;
+    Integer completedProjects = 0;
 
     public Company(String companyName){
         this.companyName = companyName;
@@ -26,12 +26,18 @@ public class Company {
     public void projectsChooser(List<Project> projects, List<Project> myProjectsInWork, List<Employees> hiredEmployees){
         Scanner scanner7 = new Scanner(System.in);
         Integer proejctIndex;
+        Integer takenProjectCounter = 0;
 
         for (Integer i = 0; i < projects.size(); i++) {
             if (projects.get(i).activeInWork == true || projects.get(i).completed == true) {
                 continue;
             }
             System.out.println("Projekt indeks = " + i + " " + projects.get(i));
+            takenProjectCounter++;
+        }
+        if(takenProjectCounter == 0){
+            System.out.println("Nie ma w tym tygodniu do wzięcia żadnych nowych projektów.");
+            return;
         }
         System.out.println("Podaj index PROJEKTU, który chcesz wziąć lub wpisz 999 aby wyjść: ");
         proejctIndex = scanner7.nextInt();
@@ -56,9 +62,10 @@ public class Company {
                     return;
                 }
                 for (Employees employees : hiredEmployees) {
-                    if (projects.get(proejctIndex).projectType.equals(employees.projectCanWork)) {
+                    if (projects.get(proejctIndex).projectType.equals(employees.projectCanWork) && employees.worksOnProject == false) {
                         projects.get(proejctIndex).employersIsWorkOnProject = employees;
                         projects.get(proejctIndex).activeInWork = true;
+                        employees.worksOnProject = true;
                         employees.projectEmployerIsWorkingOn = projects.get(proejctIndex);
                         myProjectsInWork.add(projects.get(proejctIndex));
                         System.out.println("Wzięty projekt: " + projects.get(proejctIndex));
@@ -73,6 +80,10 @@ public class Company {
     }
 
     public void projectsPrinter(List<Project> myProjectsInWork){
+        if(myProjectsInWork.size() == 0){
+            System.out.println("Nie pracujesz nad żadnymi projektami.");
+            return;
+        }
         System.out.println("Pracujesz nad tymi projektami: ");
         for (Project projects : myProjectsInWork) {
             if(projects.completed == true){
@@ -125,7 +136,7 @@ public class Company {
                 if (hiredEmployees.get(x).isHired == false) {
                     continue;
                 }
-                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x));
+                System.out.println("Employer id number is: " + x + ". " + hiredEmployees.get(x) + ", Work on:" + hiredEmployees.get(x).projectEmployerIsWorkingOn);
                 doIHaveEmpolyers++;
             }
             if(doIHaveEmpolyers == 0){
