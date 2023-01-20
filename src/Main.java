@@ -84,18 +84,14 @@ public class Main {
 
         Company damianGre = new Company("DamianGre");
 
-        damianGre.balance = 10000.0;
-
-        System.out.println("Balance: " + damianGre.balance);
+        damianGre.balance = 9000.0;
 
 
         do {
-            System.out.println("\nZEW ZEW ZEW MENU\n");
             if (newDay == true) {
                 System.out.println("\nNEW DAY!");
                 System.out.println("\nYour balance is: " + damianGre.balance);
                 newDay = false;
-                System.out.println("\nYour balance is: " + damianGre.balance);
             }
 
             if (damianGre.dayCounter == 1 && firstDay == true) {
@@ -150,14 +146,6 @@ public class Main {
                 }
             }
             do {
-                System.out.println("MENU WEWNNETRZNE");
-                System.out.println("modulo Monday: " + moduloMonday);
-                System.out.println("modulo Saturday: " + moduloSaturday);
-                System.out.println("modulo Sunday: " + moduloSunday);
-                System.out.println("Day: " + damianGre.dayCounter);
-                System.out.println("FRIEND BOOL SZUFLER " + friendMondayShuffle);
-                System.out.println("PROJECT RANDOMIZER: " + listsSortingNumberProject);
-
                 damianGre.menuBasic();
                 Integer menuChoose = scanner1.nextInt();
 
