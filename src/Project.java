@@ -14,7 +14,7 @@ public class Project {
     Double valueOfProject;
     Double deadLinePenalty;
     Integer paymentDays;
-    Integer complexity; // 1=easy, 2=mid, 3=hard
+    Integer complexity;
 
 
     public Project( String projectType,

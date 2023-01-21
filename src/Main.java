@@ -410,7 +410,7 @@ public class Main {
                         System.out.println("\nDay has ended.\n");
                         try {
                             for (Integer timer = 1; timer > 0; timer--) {
-                                System.out.println("New day starts in: " + timer + " seconds."); //10 sekund przerwy do nastepnego dnia
+                                System.out.println("New day starts in: " + timer + " seconds."); //1 sekunda przerwy do nastepnego dnia
                                 TimeUnit.SECONDS.sleep(1);
                             }
                         } catch (InterruptedException ex) {
