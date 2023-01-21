@@ -357,13 +357,18 @@ public class Main {
                         damianGre.employeePrinter(hiredEmployees);
                     }break;
                     case 6: {
-                        damianGre.empolyeeFired(hiredEmployees);
+                        damianGre.empolyeeFired(hiredEmployees, myProjectsInWork);
                     }
                     break;
                     case 7: {
+
                         for(Project projects : myProjectsInWork){
                             if(damianGre.isWeekend == false){
-                                projects.amtWorkDays--;
+                                if(projects.employersIsWorkOnProject == null){
+                                    continue;
+                                }else{
+                                    projects.amtWorkDays--;
+                                }
                             }
                             if(projects.amtWorkDays<0)
                             {

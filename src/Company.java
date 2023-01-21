@@ -146,7 +146,7 @@ public class Company {
             System.out.println("Nie masz pracowników.");
         }
     }
-    public void empolyeeFired(List<Employees> hiredEmployees){
+    public void empolyeeFired(List<Employees> hiredEmployees, List<Project> myProjectsInWork){
         Scanner scanner10 = new Scanner(System.in);
 
         Integer doIHaveEmpolyers = 0;
@@ -173,6 +173,11 @@ public class Company {
                 return;
             }
             if (fireEmployerIndex >= 0 && fireEmployerIndex < hiredEmployees.size()) {
+                for(Project projects : myProjectsInWork){
+                        if(hiredEmployees.get(fireEmployerIndex) == projects.employersIsWorkOnProject){
+                            projects.employersIsWorkOnProject = null;
+                        }
+                }
                 hiredEmployees.get(fireEmployerIndex).isHired = false;
                 System.out.println("Zwolniony pracownik: " + hiredEmployees.get(fireEmployerIndex));
                 return;
