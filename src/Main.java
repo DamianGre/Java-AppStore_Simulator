@@ -84,8 +84,7 @@ public class Main {
 
         Company damianGre = new Company("DamianGre");
 
-        damianGre.balance = 9000.0;
-
+        System.out.println(damianGre.balance);
 
         do {
             if (newDay == true) {

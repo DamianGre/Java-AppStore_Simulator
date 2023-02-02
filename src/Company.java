@@ -8,14 +8,19 @@ public class Company {
     String companyName;
     String companyOffice;
     String clientName;
-    Double balance = 10000.00; //10k $ at start
+    Double [] balanceRandom = {9000.00,  95000.00,  10000.00,  10500.00, 11000.0};
+    Double balance;
     Integer workersNumber = 0;
     Integer clients = 0;
     Boolean isWeekend = false;
     Integer completedProjects = 0;
 
+    public Random randomBalance = new Random();
+
+
     public Company(String companyName){
         this.companyName = companyName;
+        this.balance = balanceRandom[randomBalance.nextInt(balanceRandom.length)];
     }
 
     public void acceptProject(Project project)
